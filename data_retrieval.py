@@ -10,11 +10,17 @@ import requests
 import datetime
 import time
 import re
+import json
 
+_JSON_FILE = "indeces.json" #relative path
 _API_KEY = 'd03138bb083102e1cfb0f3fe96737854'
 _INVESTING_URL = "https://www.investing.com/economic-calendar/manufacturing-pmi-829"
 
-
+def parse_json(filepath):
+    with open(filepath, "r") as f:
+        dictionary = json.load(f)
+        return dictionary
+        
 def FRED_data_donwload():
     fr = Fred(api_key=_API_KEY,response_type='df')
 
@@ -84,21 +90,16 @@ def Investing_data_download():
     print df
 
 def click_load_more():
-    """options = webdriver.ChromeOptions() 
-    options.add_argument("start-maximized")
-    options.add_argument('disable-infobars')
-    driver = webdriver.Chrome("/Users/inigo/Sandbox/bu-analysis/tools/bin/chromedriver", chrome_options=options)
-    driver.get(_INVESTING_URL)
-    wait = WebDriverWait(driver,10)
-    item = wait.until(EC.visibility_of_element_located((By.XPATH,'//*[contains(@id,"showMoreHistory")]/a')))
-    print(item)
-    driver.execute_script("arguments[0].click();", item)"""
     table_rows = []
     options = webdriver.ChromeOptions()
     options.add_argument("start-maximized")
     options.add_argument('disable-infobars')
     # Obtain current dir and add string
-    driver = webdriver.Chrome("/Users/inigo/Sandbox/bu-analysis/tools/bin/chromedriver", chrome_options=options)
+    try:
+        driver = webdriver.Chrome("tools/bin/chromedriver", chrome_options=options)
+    except:
+         driver = webdriver.Chrome("tools/bin/chromedriver.exe", chrome_options=options)
+
     driver.get("https://www.investing.com/economic-calendar/investing.com-eur-usd-index-1155")
     # Cookies popup
     WebDriverWait(driver,20).until(EC.frame_to_be_available_and_switch_to_it((By.XPATH,"//iframe[@title='TrustArc Cookie Consent Manager']")))
@@ -148,9 +149,12 @@ def click_load_more():
     #html = driver.page_source
     #soup = BeautifulSoup(html, 'html.parser')
     #print (soup)
-    """for row in table_rows:
+    for row in table_rows:
         print(row.text)
-    driver.quit()"""
+    driver.quit()
 
 if __name__ == "__main__":
+    dictionary = parse_json(_JSON_FILE)
+    #print(dictionary["Indeces"]["i2"]["name"]) #print specific query values
+    #print(json.dumps(dictionary, indent=4)) #print to readable json	
     click_load_more()

@@ -131,3 +131,9 @@ dmypy.json
 
 # Pyre type checker
 .pyre/
+
+# Virtual env folders
+Include/
+Lib/
+libs/
+Scripts/

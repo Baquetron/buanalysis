@@ -1,15 +1,17 @@
-Indeces = {
-    'id':{
-        'name': "U.S. Core PCE Price Index MoM",
-        'source_name': "Investing",
-        'series': "Monthly",
-        'forecast': "Y",
-        'source_link': "https://www.investing.com/economic-calendar/core-pce-price-index-61"
-    },
-    'id':{
-        'name': "U.S. Core PCE Price Index MoM",
-        'source_name': "FRED",
-        'Identifier': "PCEPILFE",
-        'series': "Monthly"
-    }
+{
+	"Indeces": {
+		"i1": {
+			"name": "U.S. Core PCE Price Index MoM",
+			"source_name": "Investing",
+			"series": "Monthly",
+			"forecast": "Y",
+			"source_link": "https://www.investing.com/economic-calendar/core-pce-price-index-61"
+		},
+		"i2": {
+			"name": "U.S. Core PCE Price Index MoM",
+			"source_name": "FRED",
+			"Identifier": "PCEPILFE",
+			"series": "Monthly"
+		}
+	}
 }
