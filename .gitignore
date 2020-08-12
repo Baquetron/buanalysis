@@ -1,3 +1,7 @@
+#Project local folders and files
+.vscode
+chrome-data
+
 # Byte-compiled / optimized / DLL files
 __pycache__/
 *.py[cod]
