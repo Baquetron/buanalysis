@@ -42,20 +42,22 @@ def click_load_more():
     options = webdriver.ChromeOptions()
     options.add_argument("start-maximized")
     options.add_argument('disable-infobars')
-    try:
-        driver = webdriver.Chrome("tools/bin/chromedriver", chrome_options=options)
-    except:
-         driver = webdriver.Chrome("tools/bin/chromedriver.exe", chrome_options=options)
-
+   # try:
+   #     driver = webdriver.Chrome("tools/bin/chromedriver", chrome_options=options)
+   # except:
+   #      driver = webdriver.Chrome("tools/bin/chromedriver.exe", chrome_options=options)
+    driver = webdriver.Chrome("tools/bin/gc84/chromedriver.exe", chrome_options=options)
     # Minimize browser
     driver.set_window_position(-2000,0)
+    time.sleep(3)
     driver.get(_INVESTING_URL)
     # Cookies popup
-    WebDriverWait(driver,20).until(EC.frame_to_be_available_and_switch_to_it((By.XPATH,"//iframe[@title='TrustArc Cookie Consent Manager']")))
+    #WebDriverWait(driver,20).until(EC.frame_to_be_available_and_switch_to_it((By.XPATH,"//iframe[@title='TrustArc Cookie Consent Manager']")))
+    #WebDriverWait(driver,20).until(EC.frame_to_be_available_and_switch_to_it((By.XPATH,'//*[@id="onetrust-banner-sdk"]')))
     try:    # Spanish version
         WebDriverWait(driver,20).until(EC.element_to_be_clickable((By.XPATH,"//a[text()='Entendido']"))).click()
     except: # English version
-        WebDriverWait(driver,20).until(EC.element_to_be_clickable((By.XPATH,"//a[text()='Got it']"))).click()
+        WebDriverWait(driver,20).until(EC.element_to_be_clickable((By.XPATH,"//*[@id='onetrust-accept-btn-handler']"))).click()
     # End of cookies
 
     # Put into sight show more button
