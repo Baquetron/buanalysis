@@ -42,55 +42,49 @@ def click_load_more():
     options = webdriver.ChromeOptions()
     options.add_argument("start-maximized")
     options.add_argument('disable-infobars')
-   # try:
-   #     driver = webdriver.Chrome("tools/bin/chromedriver", chrome_options=options)
-   # except:
-   #      driver = webdriver.Chrome("tools/bin/chromedriver.exe", chrome_options=options)
-    driver = webdriver.Chrome("tools/bin/gc84/chromedriver.exe", chrome_options=options)
+    try:
+        driver = webdriver.Chrome("tools/bin/chromedriver", chrome_options=options)
+    except:
+        driver = webdriver.Chrome("tools/bin/gc84/chromedriver.exe", chrome_options=options)
     # Minimize browser
     driver.set_window_position(-2000,0)
     time.sleep(3)
     driver.get(_INVESTING_URL)
     # Cookies popup
-    #WebDriverWait(driver,20).until(EC.frame_to_be_available_and_switch_to_it((By.XPATH,"//iframe[@title='TrustArc Cookie Consent Manager']")))
-    #WebDriverWait(driver,20).until(EC.frame_to_be_available_and_switch_to_it((By.XPATH,'//*[@id="onetrust-banner-sdk"]')))
-    try:    # Spanish version
-        WebDriverWait(driver,20).until(EC.element_to_be_clickable((By.XPATH,"//a[text()='Entendido']"))).click()
-    except: # English version
+    try:
         WebDriverWait(driver,20).until(EC.element_to_be_clickable((By.XPATH,"//*[@id='onetrust-accept-btn-handler']"))).click()
+    except TimeoutException:
+        print("Button not found. Check if web has changed!")
     # End of cookies
 
     # Put into sight show more button
     show_more_button = WebDriverWait(driver, 20).until(EC.visibility_of_element_located((By.CSS_SELECTOR, "table.genTbl.openTbl.ecHistoryTbl tr>th.left.symbol")))
     driver.execute_script("arguments[0].scrollIntoView(true);",show_more_button)
     myLength = len(WebDriverWait(driver, 20).until(EC.visibility_of_all_elements_located((By.CSS_SELECTOR, "table.genTbl.openTbl.ecHistoryTbl tr[id^='historicEvent']"))))
-    #show_more_button = WebDriverWait(driver, 20).until(EC.visibility_of_element_located((By.CSS_SELECTOR, "table.genTbl.openTbl.ecHistoryTbl#eventHistoryTable1155 tr>th.left.symbol")))
-    #myLength = len(WebDriverWait(driver, 20).until(EC.visibility_of_all_elements_located((By.CSS_SELECTOR, "table.genTbl.openTbl.ecHistoryTbl#eventHistoryTable1155 tr[event_attr_id='1155']"))))
-    #print ("myLength: ", myLength)
 
-    """while True:
+    while True:
         try:
             WebDriverWait(driver, 20).until(EC.element_to_be_clickable((By.CSS_SELECTOR, "div.showMoreReplies.block>a"))).click()
             WebDriverWait(driver, 20).until(lambda driver: len(driver.find_elements_by_css_selector("table.genTbl.openTbl.ecHistoryTbl tr[id^='historicEvent']")) > myLength)
             table_rows = driver.find_elements_by_css_selector("table.genTbl.openTbl.ecHistoryTbl tr[id^='historicEvent']")
-            #WebDriverWait(driver, 20).until(EC.element_to_be_clickable((By.CSS_SELECTOR, "div#showMoreHistory1155>a"))).click()
-            #WebDriverWait(driver, 20).until(lambda driver: len(driver.find_elements_by_css_selector("table.genTbl.openTbl.ecHistoryTbl#eventHistoryTable1155 tr[event_attr_id='1155']")) > myLength)
-            #table_rows = driver.find_elements_by_css_selector("table.genTbl.openTbl.ecHistoryTbl#eventHistoryTable1155 tr[event_attr_id='1155']")
             myLength = len(table_rows)
         except TimeoutException:
-            break"""
+            break
 
-    WebDriverWait(driver, 20).until(EC.element_to_be_clickable((By.CSS_SELECTOR, "div.showMoreReplies.block>a"))).click()
-    WebDriverWait(driver, 20).until(lambda driver: len(driver.find_elements_by_css_selector("table.genTbl.openTbl.ecHistoryTbl tr[id^='historicEvent']")) > myLength)
-    table_rows = driver.find_elements_by_css_selector("table.genTbl.openTbl.ecHistoryTbl tr[id^='historicEvent']")
-    print ("Good job!")
-    matrix = []
-    for row in table_rows:
-        print(row.text)
-        line = row.text
-        matrix.append(line)
+    #WebDriverWait(driver, 20).until(EC.element_to_be_clickable((By.CSS_SELECTOR, "div.showMoreReplies.block>a"))).click()
+    #WebDriverWait(driver, 20).until(lambda driver: len(driver.find_elements_by_css_selector("table.genTbl.openTbl.ecHistoryTbl tr[id^='historicEvent']")) > myLength)
+    #table_rows = driver.find_elements_by_css_selector("table.genTbl.openTbl.ecHistoryTbl tr[id^='historicEvent']")
+    headers = ["Release_M", "Release_D", "Release_Y", "Actual_M", "Release_H", "Actual", "Forecast", "Prev"]
+    for i, row in enumerate(table_rows):
+        line = str(row.text).replace(",", "").replace("(", "").replace(")", "").split()
+        if i == 0:
+            temp = line.pop()
+            line.extend(['0','0',temp])
+            matrix = [line]
+        else:
+            matrix.append(line)
     # Get to csv
-    df = pandas.DataFrame.from_dict(table_rows)
+    df = pandas.DataFrame(matrix, columns=headers)
     df.to_csv("data/Investing_data.csv")
     driver.quit()
 
