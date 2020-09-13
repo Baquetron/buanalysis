@@ -1,6 +1,7 @@
 #Project local folders and files
 .vscode
 chrome-data
+*.sqlite
 
 # Byte-compiled / optimized / DLL files
 __pycache__/
