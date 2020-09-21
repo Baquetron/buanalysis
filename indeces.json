@@ -1,17 +1,36 @@
 {
-	"Indeces": {
-		"i1": {
-			"name": "U.S. Core PCE Price Index MoM",
-			"source_name": "Investing",
-			"series": "Monthly",
-			"forecast": "Y",
-			"source_link": "https://www.investing.com/economic-calendar/core-pce-price-index-61"
-		},
-		"i2": {
-			"name": "U.S. Core PCE Price Index MoM",
-			"source_name": "FRED",
-			"Identifier": "PCEPILFE",
-			"series": "Monthly"
-		}
+	"IPCEM": {
+		"name": "U.S. Core PCE Price Index MoM",
+		"src": "Investing",
+		"freq": "m",
+		"forecast": "Y",
+		"src_link": "https://www.investing.com/economic-calendar/core-pce-price-index-61"
+	},
+	"FPCEM": {
+		"name": "U.S. Core PCE Price Index MoM",
+		"src": "FRED",
+		"freq": "m",
+		"Id": "PCEPILFE"
+	},
+	"IPMIM": {
+		"name": "U.S. Manufacturing Purchasing Managers Index (PMI)",
+		"src": "Investing",
+		"freq": "m",
+		"forecast": "Y",
+		"src_link": "https://www.investing.com/economic-calendar/manufacturing-pmi-829"
+	},
+	"FM2W": {
+		"name": "M2 Money Stock",
+		"src": "FRED",
+		"freq": "w",
+		"units":"chg",
+		"Id": "M2"
+	},
+	"FEFFRM": {
+		"name": "Effective Federal Funds Rate",
+		"src": "FRED",
+		"freq": "m",
+		"units": "lin",
+		"Id": "FEDFUNDS"
 	}
 }

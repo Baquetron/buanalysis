@@ -50,7 +50,6 @@ table["Release_Date"] = table['Release_Y'].astype(str) + "-" + table['Release_M'
 
 # Join Actual_Y-Actual_M
 table["Actual_Date"] = table['Actual_Y'].astype(str) + "-" + table['Actual_M'].astype(str)
-table.to_csv("data/Investing_data_clean.csv")
-#con = sqlite3.connect("data/db/economic_data.sqlite")
-#table.to_sql(name="Manufacturing_PMI", con=con)
-#print(table)
+#table.to_csv("data/Investing_data_clean.csv")
+con = sqlite3.connect("data/db/economic_data.sqlite")
+table.to_sql(name="Manufacturing_PMI_clean", con=con)

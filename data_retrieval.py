@@ -20,22 +20,28 @@ def parse_json(filepath):
     with open(filepath, "r") as f:
         dictionary = json.load(f)
         return dictionary
+
+def acces_json():
+    indx_list = parse_json(_JSON_FILE)
+    print(indx_list['IPCEM']['source_link'])
+    #print(indx_list.keys())
         
 def FRED_data_donwload():
     fr = Fred(api_key=_API_KEY,response_type='df')
 
     params = {
-            #'limit':5,
-            'output_type': 1,
-            "observation_start": "2019-01-01",
+            "output_type": 1,
+            "observation_start": "2014-01-01",
+            "frequency": "w",
             "sort_order": "desc",
-            "units": "pch"
+            "units": "chg"
             }
 
-    res = fr.series.observations('PCEPILFE', params=params)
+    res = fr.series.observations('M2', params=params)
+    res = res.drop(['realtime_end', 'realtime_start'], axis=1)
 
     print(res)
-    res.to_csv("data/Indeces_data.csv")
+    #res.to_csv("data/FRED_M2_data.csv")
 
 def click_load_more():
     table_rows = []
@@ -89,7 +95,8 @@ def click_load_more():
     driver.quit()
 
 if __name__ == "__main__":
-    dictionary = parse_json(_JSON_FILE)
+    acces_json()
+    #FRED_data_donwload()
     #print(dictionary["Indeces"]["i2"]["name"]) #print specific query values
     #print(json.dumps(dictionary, indent=4)) #print to readable json	
-    click_load_more()
+    #click_load_more()
