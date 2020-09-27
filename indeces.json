@@ -1,17 +1,4 @@
 {
-	"IPCEM": {
-		"name": "U.S. Core PCE Price Index MoM",
-		"src": "Investing",
-		"freq": "m",
-		"forecast": "Y",
-		"src_link": "https://www.investing.com/economic-calendar/core-pce-price-index-61"
-	},
-	"FPCEM": {
-		"name": "U.S. Core PCE Price Index MoM",
-		"src": "FRED",
-		"freq": "m",
-		"Id": "PCEPILFE"
-	},
 	"IPMIM": {
 		"name": "U.S. Manufacturing Purchasing Managers Index (PMI)",
 		"src": "Investing",

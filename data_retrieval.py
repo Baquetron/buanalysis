@@ -11,6 +11,8 @@ import datetime
 import time
 import re
 import json
+import FRED_donwload as FRED
+import Investing_download as Investing
 
 _JSON_FILE = "indeces.json" #relative path
 _API_KEY = 'd03138bb083102e1cfb0f3fe96737854'
@@ -25,77 +27,20 @@ def acces_json():
     indx_list = parse_json(_JSON_FILE)
     print(indx_list['IPCEM']['source_link'])
     #print(indx_list.keys())
-        
-def FRED_data_donwload():
-    fr = Fred(api_key=_API_KEY,response_type='df')
 
-    params = {
-            "output_type": 1,
-            "observation_start": "2014-01-01",
-            "frequency": "w",
-            "sort_order": "desc",
-            "units": "chg"
-            }
-
-    res = fr.series.observations('M2', params=params)
-    res = res.drop(['realtime_end', 'realtime_start'], axis=1)
-
-    print(res)
-    #res.to_csv("data/FRED_M2_data.csv")
-
-def click_load_more():
-    table_rows = []
-    options = webdriver.ChromeOptions()
-    options.add_argument("start-maximized")
-    options.add_argument('disable-infobars')
-    try:
-        driver = webdriver.Chrome("tools/bin/chromedriver", chrome_options=options)
-    except:
-        driver = webdriver.Chrome("tools/bin/gc84/chromedriver.exe", chrome_options=options)
-    # Minimize browser
-    driver.set_window_position(-2000,0)
-    time.sleep(3)
-    driver.get(_INVESTING_URL)
-    # Cookies popup
-    try:
-        WebDriverWait(driver,20).until(EC.element_to_be_clickable((By.XPATH,"//*[@id='onetrust-accept-btn-handler']"))).click()
-    except TimeoutException:
-        print("Button not found. Check if web has changed!")
-    # End of cookies
-
-    # Put into sight show more button
-    show_more_button = WebDriverWait(driver, 20).until(EC.visibility_of_element_located((By.CSS_SELECTOR, "table.genTbl.openTbl.ecHistoryTbl tr>th.left.symbol")))
-    driver.execute_script("arguments[0].scrollIntoView(true);",show_more_button)
-    myLength = len(WebDriverWait(driver, 20).until(EC.visibility_of_all_elements_located((By.CSS_SELECTOR, "table.genTbl.openTbl.ecHistoryTbl tr[id^='historicEvent']"))))
-
-    while True:
-        try:
-            WebDriverWait(driver, 20).until(EC.element_to_be_clickable((By.CSS_SELECTOR, "div.showMoreReplies.block>a"))).click()
-            WebDriverWait(driver, 20).until(lambda driver: len(driver.find_elements_by_css_selector("table.genTbl.openTbl.ecHistoryTbl tr[id^='historicEvent']")) > myLength)
-            table_rows = driver.find_elements_by_css_selector("table.genTbl.openTbl.ecHistoryTbl tr[id^='historicEvent']")
-            myLength = len(table_rows)
-        except TimeoutException:
-            break
-
-    #WebDriverWait(driver, 20).until(EC.element_to_be_clickable((By.CSS_SELECTOR, "div.showMoreReplies.block>a"))).click()
-    #WebDriverWait(driver, 20).until(lambda driver: len(driver.find_elements_by_css_selector("table.genTbl.openTbl.ecHistoryTbl tr[id^='historicEvent']")) > myLength)
-    #table_rows = driver.find_elements_by_css_selector("table.genTbl.openTbl.ecHistoryTbl tr[id^='historicEvent']")
-    headers = ["Release_M", "Release_D", "Release_Y", "Actual_M", "Release_H", "Actual", "Forecast", "Prev"]
-    for i, row in enumerate(table_rows):
-        line = str(row.text).replace(",", "").replace("(", "").replace(")", "").split()
-        if i == 0:
-            temp = line.pop()
-            line.extend(['0','0',temp])
-            matrix = [line]
-        else:
-            matrix.append(line)
-    # Get to csv
-    df = pandas.DataFrame(matrix, columns=headers)
-    df.to_csv("data/Investing_data.csv")
-    driver.quit()
+def main():
+    ind_dict = parse_json(_JSON_FILE)
+    for name in ind_dict:
+        if name[0] == "F":  # FRED source
+            result = FRED.download(ind_dict[name], name)
+            print(result)
+        elif name[0] == "I":    # Investing source
+            result = Investing.download(ind_dict[name], name)
+            print(result)
 
 if __name__ == "__main__":
-    acces_json()
+    main()
+    #acces_json()
     #FRED_data_donwload()
     #print(dictionary["Indeces"]["i2"]["name"]) #print specific query values
     #print(json.dumps(dictionary, indent=4)) #print to readable json	
