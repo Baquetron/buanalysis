@@ -12,17 +12,15 @@ import calendar
 from time import strptime
 import PMI_cleaner
 
-#_INVESTING_URL = "https://www.investing.com/economic-calendar/manufacturing-pmi-829"
-
 def download(json_dict, name_dict):
     table_rows = []
     options = webdriver.ChromeOptions()
     options.add_argument("start-maximized")
     options.add_argument('disable-infobars')
     try:
-        driver = webdriver.Chrome("tools/bin/chromedriver", chrome_options=options)
-    except:
         driver = webdriver.Chrome("tools/bin/gc84/chromedriver.exe", chrome_options=options)
+    except:
+        driver = webdriver.Chrome("tools/bin/chromedriver", chrome_options=options)
     # Minimize browser
     driver.set_window_position(-2000,0)
     time.sleep(3)
@@ -73,8 +71,8 @@ def download(json_dict, name_dict):
     driver.quit()
 
     if name_dict == "IPMIM":    # Special data preparation for PMI
-        PMI_cleaner.execute(path)
-
+        #PMI_cleaner.execute(path)
+        pass
     return True
 
 """if __name__ == "__main__":

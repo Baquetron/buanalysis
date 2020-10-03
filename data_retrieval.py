@@ -11,8 +11,9 @@ import datetime
 import time
 import re
 import json
-import FRED_donwload as FRED
+import FRED_download as FRED
 import Investing_download as Investing
+import EIA_download as EIA
 
 _JSON_FILE = "indeces.json" #relative path
 _API_KEY = 'd03138bb083102e1cfb0f3fe96737854'
@@ -36,6 +37,9 @@ def main():
             print(result)
         elif name[0] == "I":    # Investing source
             result = Investing.download(ind_dict[name], name)
+            print(result)
+        elif name[0] == "E":    #EIA source
+            result = EIA.download(ind_dict[name], name)
             print(result)
 
 if __name__ == "__main__":

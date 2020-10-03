@@ -1,4 +1,11 @@
 {
+	"EPETM": {
+		"name": "Gulf coast refinery and blender net input of crude oil",
+		"src": "EIA",
+		"freq": "m",
+		"units": "",
+		"Id": "PET.MCRRIP32.M"
+	},
 	"IPMIM": {
 		"name": "U.S. Manufacturing Purchasing Managers Index (PMI)",
 		"src": "Investing",
