@@ -55,5 +55,5 @@ def execute(path):
     #con = sqlite3.connect("data/db/economic_data.sqlite")
     #table.to_sql(name="Manufacturing_PMI_clean", con=con)
 
-"""if __name__ == "__main__":
-    execute("data/IPMIM_temp.csv")"""
+if __name__ == "__main__":
+    execute("data/IPMIM.csv")

@@ -26,5 +26,35 @@
 		"freq": "m",
 		"units": "lin",
 		"Id": "FEDFUNDS"
+	},
+	"FIRDRM": {
+		"name": "Interest Rates, Discount Rate for United States",
+		"src": "FRED",
+		"freq": "m",
+		"units": "lin",
+		"Id": "INTDSRUSM193N"
+	},
+	"FEFFRM": {
+		"name": "Effective Federal Funds Rate",
+		"src": "FRED",
+		"freq": "m",
+		"units": "lin",
+		"Id": "FEDFUNDS"
+	},
+	"FEFFRM": {
+		"name": "Effective Federal Funds Rate",
+		"src": "FRED",
+		"freq": "m",
+		"units": "lin",
+		"Id": "FEDFUNDS"
+	},
+	"FEFFRM": {
+		"name": "Effective Federal Funds Rate",
+		"src": "FRED",
+		"freq": "m",
+		"units": "lin",
+		"Id": "FEDFUNDS"
 	}
+
+	
 }

@@ -50,15 +50,19 @@ def download(json_dict, name_dict):
     #WebDriverWait(driver, 20).until(lambda driver: len(driver.find_elements_by_css_selector("table.genTbl.openTbl.ecHistoryTbl tr[id^='historicEvent']")) > myLength)
     #table_rows = driver.find_elements_by_css_selector("table.genTbl.openTbl.ecHistoryTbl tr[id^='historicEvent']")
     headers = ["Release_M", "Release_D", "Release_Y", "Actual_M", "Release_H", "Actual", "Forecast", "Prev"]
+    init_row = 0
     for i, row in enumerate(table_rows):
         line = str(row.text).replace(",", "").replace("(", "").replace(")", "").split()
-        if i == 0:
+        if i == init_row:
             prev = line.pop()
             if len(line) == len(headers)-2: #Actual missing
                 forecast = line.pop()
-                line.extend(['0',forecast,prev]) 
+                line.extend(['0.0',forecast,prev]) 
             elif len(line) == len(headers)-3:   #Actual and Forecast missing
-                line.extend(['0','0',prev])
+                line.extend(['0.0','0.0',prev])
+            else:   #Bad structured row by Investing: Delete it
+                init_row = 1
+                pass
             matrix = [line]
         else:
             matrix.append(line)
@@ -75,7 +79,7 @@ def download(json_dict, name_dict):
         pass
     return True
 
-"""if __name__ == "__main__":
+if __name__ == "__main__":
     index = {
 		"name": "U.S. Manufacturing Purchasing Managers Index (PMI)",
 		"src": "Investing",
@@ -83,4 +87,4 @@ def download(json_dict, name_dict):
 		"forecast": "Y",
 		"src_link": "https://www.investing.com/economic-calendar/manufacturing-pmi-829"
 	}
-    download(index, "IPMIM")"""
+    download(index, "IPMIM")
