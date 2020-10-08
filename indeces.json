@@ -3,8 +3,13 @@
 		"name": "Gulf coast refinery and blender net input of crude oil",
 		"src": "EIA",
 		"freq": "m",
-		"units": "",
 		"Id": "PET.MCRRIP32.M"
+	},
+	"AWXSFRM": {
+		"name": "Wu-Xia Shadow Federal Funds Rate",
+		"src": "FRBAtlanta",
+		"freq": "m",
+		"src_link": "https://www.frbatlanta.org/cqer/research/wu-xia-shadow-federal-funds-rate"
 	},
 	"IPMIM": {
 		"name": "U.S. Manufacturing Purchasing Managers Index (PMI)",
@@ -34,27 +39,88 @@
 		"units": "lin",
 		"Id": "INTDSRUSM193N"
 	},
-	"FEFFRM": {
-		"name": "Effective Federal Funds Rate",
+	"F3MLD": {
+		"name": "3-Month London Interbank Offered Rate (LIBOR)",
 		"src": "FRED",
-		"freq": "m",
+		"freq": "d",
 		"units": "lin",
-		"Id": "FEDFUNDS"
+		"Id": "USD3MTD156N"
 	},
-	"FEFFRM": {
-		"name": "Effective Federal Funds Rate",
+	"FIRERD": {
+		"name": "Interest Rate on Excess Reserves",
 		"src": "FRED",
-		"freq": "m",
+		"freq": "d",
 		"units": "lin",
-		"Id": "FEDFUNDS"
+		"Id": "IOER"
 	},
-	"FEFFRM": {
-		"name": "Effective Federal Funds Rate",
+	"FFFTULD": {
+		"name": "Federal Funds Target Range - Upper Limit",
+		"src": "FRED",
+		"freq": "d",
+		"units": "lin",
+		"Id": "DFEDTARU"
+	},
+	"FFFTLLD": {
+		"name": "Federal Funds Target Range - Lower Limit",
+		"src": "FRED",
+		"freq": "d",
+		"units": "lin",
+		"Id": "DFEDTARL"
+	},
+	"FVM2": {
+		"name": "Velocity of M2 Money Stock",
+		"src": "FRED",
+		"freq": "q",
+		"units": "lin",
+		"Id": "M2V"
+	},
+	"FGDPNQ": {
+		"name": "GDPNow",
+		"src": "FRED",
+		"freq": "q",
+		"units": "lin",
+		"Id": "GDPNOW"
+	},
+	"FOVRAD": {
+		"name": "Overnight Repurchase Agreements: Treasury Securities Purchased by the Federal Reserve in the Temporary Open Market Operations",
+		"src": "FRED",
+		"freq": "d",
+		"units": "lin",
+		"Id": "RPONTSYD"
+	},
+	"FERDIM": {
+		"name": "Excess Reserves of Depository Institutions",
 		"src": "FRED",
 		"freq": "m",
+		"units": "chg",
+		"Id": "EXCSRESNS"
+	},
+	"FRBRW": {
+		"name": "Reserve Balances Required; Reserve Balance Requirements (DISCONTINUED)",
+		"src": "FRED",
+		"freq": "w",
 		"units": "lin",
-		"Id": "FEDFUNDS"
+		"Id": "RESBALREQW"
+	},
+	"FFRTAW": {
+		"name": "Federal Reserve Total Assets",
+		"src": "FRED",
+		"freq": "w",
+		"units": "lin",
+		"Id": "WALCL"
+	},
+	"FCAILW": {
+		"name": "Commercial and Industrial Loans, All Commercial Banks",
+		"src": "FRED",
+		"freq": "w",
+		"units": "chg",
+		"Id": "TOTCI"
+	},
+	"FLESSW": {
+		"name": "LESS: Allowance for Loan and Lease Losses, All Commercial Banks",
+		"src": "FRED",
+		"freq": "w",
+		"units": "lin",
+		"Id": "ALLACBW027SBOG"
 	}
-
-	
 }
