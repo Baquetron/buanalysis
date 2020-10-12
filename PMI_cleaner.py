@@ -51,9 +51,9 @@ def execute(path):
 
     # Join Actual_Y-Actual_M
     table["Actual_Date"] = table['Actual_Y'].astype(str) + "-" + table['Actual_M'].astype(str)
-    table.to_csv("data/IPMIM.csv")
-    #con = sqlite3.connect("data/db/economic_data.sqlite")
-    #table.to_sql(name="Manufacturing_PMI_clean", con=con)
+    #table.to_csv("data/IPMIM.csv")
+    con = sqlite3.connect("data/db/economic_data.sqlite")
+    table.to_sql(name="IPMIM", con=con)
 
 if __name__ == "__main__":
     execute("data/IPMIM.csv")
