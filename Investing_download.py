@@ -75,8 +75,8 @@ def download(json_dict, name_dict):
     driver.quit()
 
     if name_dict == "IPMIM":    # Special data preparation for PMI
-        #PMI_cleaner.execute(path)
-        pass
+        PMI_cleaner.execute(path)
+        #pass
     return True
 
 if __name__ == "__main__":

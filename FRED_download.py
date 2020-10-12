@@ -19,3 +19,14 @@ def download(json_dict, name_dict):
     res.to_csv("data/" + name_dict + ".csv")
 
     return True
+
+if __name__ == "__main__":
+        mydict = {
+		"name": "3-Month London Interbank Offered Rate (LIBOR)",
+		"src": "FRED",
+		"freq": "d",
+		"units": "lin",
+		"Id": "USD3MTD156N"
+	}
+        name = "F3MLD"
+        download(mydict, name)

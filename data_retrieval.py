@@ -14,6 +14,7 @@ import json
 import FRED_download as FRED
 import Investing_download as Investing
 import EIA_download as EIA
+import FRBA_download as FRBA
 
 _JSON_FILE = "indeces.json" #relative path
 _API_KEY = 'd03138bb083102e1cfb0f3fe96737854'
@@ -32,6 +33,7 @@ def acces_json():
 def main():
     ind_dict = parse_json(_JSON_FILE)
     for name in ind_dict:
+        print(name)
         if name[0] == "F":  # FRED source
             result = FRED.download(ind_dict[name], name)
             print(result)
@@ -41,11 +43,13 @@ def main():
         elif name[0] == "E":    #EIA source
             result = EIA.download(ind_dict[name], name)
             print(result)
+        elif name[0] == "A":    # FRB Atlanta
+            result = FRBA.download(ind_dict[name], name)
+            print(result)
+        time.sleep(1)
 
 if __name__ == "__main__":
     main()
     #acces_json()
-    #FRED_data_donwload()
     #print(dictionary["Indeces"]["i2"]["name"]) #print specific query values
     #print(json.dumps(dictionary, indent=4)) #print to readable json	
-    #click_load_more()

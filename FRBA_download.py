@@ -8,27 +8,11 @@ import os
 import glob
 import pandas
 
-def download():
-    filename = "WuXiaShadowRate.xlsx"
-    options = webdriver.ChromeOptions()
-    options.add_argument("start-maximized")
-    options.add_argument('disable-infobars')
-    try:
-        driver = webdriver.Chrome("tools/bin/gc84/chromedriver.exe", chrome_options=options)
-    except:
-        driver = webdriver.Chrome("tools/bin/chromedriver", chrome_options=options)
-    # Minimize browser
-    #driver.set_window_position(-2000,0)
-    time.sleep(3)
-    driver.get("https://www.frbatlanta.org/cqer/research/wu-xia-shadow-federal-funds-rate")
-
-    WebDriverWait(driver, 20).until(EC.element_to_be_clickable((By.XPATH, "//*[@id='main']/div/div[2]/div[5]/div/ul[1]/li[2]/a"))).click()
-    time.sleep(10)  # Wait for download
-
+def download(json_dict, name_dict):
+    filename = json_dict["filename"]
     # This is for mac
     home = os.path.expanduser("~")
     filedir = os.path.join(home, "Downloads/")
-
     # For windows
     """if os.name == 'nt':
     import ctypes
@@ -71,23 +55,72 @@ def download():
 
     filepath = filedir + filename
     if os.path.isfile(filepath):
-        shadow_r_reader(filepath)
+        print("Removing old file")
+        os.remove(filepath)
+
+    options = webdriver.ChromeOptions()
+    options.add_argument("start-maximized")
+    options.add_argument('disable-infobars')
+    try:
+        driver = webdriver.Chrome("tools/bin/gc84/chromedriver.exe", chrome_options=options)
+    except:
+        driver = webdriver.Chrome("tools/bin/chromedriver", chrome_options=options)
+    # Minimize browser
+    driver.set_window_position(-2000,0)
+    time.sleep(3)
+    driver.get(json_dict["src_link"])
+    if name_dict == "AWXSFRM":
+        WebDriverWait(driver, 20).until(EC.element_to_be_clickable((By.XPATH, "//*[@id='main']/div/div[2]/div[5]/div/ul[1]/li[2]/a"))).click()
+    elif name_dict == "AGDPNO":
+        WebDriverWait(driver, 20).until(EC.element_to_be_clickable((By.XPATH, "//*[@id='main']/div[1]/div[1]/p[4]/a[2]"))).click()
+    else:
+        print("Unknown index!")
+        return False
+    time.sleep(10)  # Wait for download
+
+    if os.path.isfile(filepath):
+        if name_dict == "AWXSFRM":   # Wuxia shadow rates
+            shadow_r_reader(filepath, name_dict)
+        elif name_dict == "AGDPNO":  # GPDnow
+            gdpnow_reader(filepath, name_dict)
     else:
         print("%s isn't a file!" % filepath)
+        driver.quit()
         return False
     driver.quit()
+    return True
 
-def shadow_r_reader(filepath):
+def shadow_r_reader(filepath, name_dict):
     pd_sheet = pandas.read_excel(filepath, sheet_name='Data')
     wuxia_pd = pd_sheet.iloc[:,[0,2]]
-    wuxia_pd = wuxia_pd.iloc[::-1]
+    wuxia_pd = wuxia_pd.iloc[::-1].reset_index(drop=True)
+    wuxia_pd.columns = ['Date', 'Actual']
 
-    wuxia_pd.to_csv("data/AWXSFRM.csv")
+    wuxia_pd.to_csv("data/" + name_dict + ".csv")
 
-def gdpnow_reader(filepath):
+def gdpnow_reader(filepath, name_dict):
     pd_sheet = pandas.read_excel(filepath, sheet_name='TrackingHistory')
-    pd_sheet.to_csv("GPDNOW.csv")
+    for i, elem in enumerate(pd_sheet.iloc[:,1]):
+        if elem == "GDP Nowcast":
+            gdp_pos = i
+            break
+
+    gdp_series = pd_sheet.iloc[gdp_pos][2:]
+    gdp_pd = gdp_series.reset_index(drop=False)
+    gdp_pd.columns = ["Date", "Actual"]
+    gdp_pd = gdp_pd[::-1].reset_index(drop=True)
+
+    gdp_pd.to_csv("data/" + name_dict + ".csv")
 
 if __name__ == "__main__":
-    download()
+    mydict = {
+		"name": "Wu-Xia Shadow Federal Funds Rate",
+		"src": "FRBAtlanta",
+		"freq": "m",
+		"filename": "WuXiaShadowRate.xlsx",
+		"src_link": "https://www.frbatlanta.org/cqer/research/wu-xia-shadow-federal-funds-rate"
+	}
+    namedict = "AWXSFRM"
+    download(mydict, namedict)
     #shadow_r_reader("/Users/inigo/Downloads/WuXiaShadowRate.xlsx")
+    #gdpnow_reader("/Users/inigo/Downloads/GDPTrackingModelDataAndForecasts.xlsx")

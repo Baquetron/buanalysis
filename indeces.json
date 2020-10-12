@@ -9,6 +9,7 @@
 		"name": "Wu-Xia Shadow Federal Funds Rate",
 		"src": "FRBAtlanta",
 		"freq": "m",
+		"filename": "WuXiaShadowRate.xlsx",
 		"src_link": "https://www.frbatlanta.org/cqer/research/wu-xia-shadow-federal-funds-rate"
 	},
 	"IPMIM": {
@@ -38,13 +39,6 @@
 		"freq": "m",
 		"units": "lin",
 		"Id": "INTDSRUSM193N"
-	},
-	"F3MLD": {
-		"name": "3-Month London Interbank Offered Rate (LIBOR)",
-		"src": "FRED",
-		"freq": "d",
-		"units": "lin",
-		"Id": "USD3MTD156N"
 	},
 	"FIRERD": {
 		"name": "Interest Rate on Excess Reserves",
@@ -122,5 +116,12 @@
 		"freq": "w",
 		"units": "lin",
 		"Id": "ALLACBW027SBOG"
+	},
+	"AGDPNO": {
+		"name": "GDPNow",
+		"src": "FRBAtlanta",
+		"freq": "o",
+		"filename": "GDPTrackingModelDataAndForecasts.xlsx",
+		"src_link": "https://www.frbatlanta.org/cqer/research/gdpnow"
 	}
 }
