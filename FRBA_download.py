@@ -13,6 +13,7 @@ from datetime import datetime
 def download(json_dict, name_dict):
     filename = json_dict["filename"]
     freq = json_dict["freq"]
+
     # This is for mac
     home = os.path.expanduser("~")
     filedir = os.path.join(home, "Downloads/")
@@ -94,23 +95,29 @@ def download(json_dict, name_dict):
     return True
 
 def shadow_r_reader(filepath, name_dict, freq):
+    actual_date = "Actual_Date_" + name_dict
+    actual = "Actual_" + name_dict
+
     pd_sheet = pandas.read_excel(filepath, sheet_name='Data')
     wuxia_pd = pd_sheet.iloc[:,[0,2]]
     wuxia_pd = wuxia_pd.iloc[::-1].reset_index(drop=True)
-    wuxia_pd.columns = ['Actual_Date', 'Actual']
+    wuxia_pd.columns = [actual_date, actual]
 
     if freq == "d" or freq == "w" or freq == "o":
         pass
     elif freq == "m" or freq == "q":
-        wuxia_pd["Actual_Date"] = wuxia_pd["Actual_Date"].apply(lambda x: str(x)[0:7])
+        wuxia_pd[actual_date] = wuxia_pd[actual_date].apply(lambda x: str(x)[0:7])
     elif freq == "y":
-        wuxia_pd["Actual_Date"] = wuxia_pd["Actual_Date"].apply(lambda x: str(x)[0:4])
+        wuxia_pd[actual_date] = wuxia_pd[actual_date].apply(lambda x: str(x)[0:4])
 
     #wuxia_pd.to_csv("data/" + name_dict + ".csv")
     con = sqlite3.connect("data/db/economic_data.sqlite")
     wuxia_pd.to_sql(name=name_dict, con=con)
 
 def gdpnow_reader(filepath, name_dict, freq):
+    actual_date = "Actual_Date_" + name_dict
+    actual = "Actual_" + name_dict
+
     pd_sheet = pandas.read_excel(filepath, sheet_name='TrackingHistory')
     for i, elem in enumerate(pd_sheet.iloc[:,1]):
         if elem == "GDP Nowcast":
@@ -119,15 +126,15 @@ def gdpnow_reader(filepath, name_dict, freq):
 
     gdp_series = pd_sheet.iloc[gdp_pos][2:]
     gdp_pd = gdp_series.reset_index(drop=False)
-    gdp_pd.columns = ["Actual_Date", "Actual"]
+    gdp_pd.columns = [actual_date, actual]
     gdp_pd = gdp_pd[::-1].reset_index(drop=True)
 
     if freq == "d" or freq == "w" or freq == "o":
         pass
     elif freq == "m" or freq == "q":
-        gdp_pd["Actual_Date"] = gdp_pd["Actual_Date"].apply(lambda x: str(x)[0:7])
+        gdp_pd[actual_date] = gdp_pd[actual_date].apply(lambda x: str(x)[0:7])
     elif freq == "y":
-        gdp_pd["Actual_Date"] = gdp_pd["Actual_Date"].apply(lambda x: str(x)[0:4])
+        gdp_pd[actual_date] = gdp_pd[actual_date].apply(lambda x: str(x)[0:4])
 
     #gdp_pd.to_csv("data/" + name_dict + ".csv")
     con = sqlite3.connect("data/db/economic_data.sqlite")
@@ -143,5 +150,5 @@ if __name__ == "__main__":
 	}
     namedict = "AWXSFRM"
     #download(mydict, namedict)
-    shadow_r_reader("/Users/inigo/Downloads/WuXiaShadowRate.xlsx", namedict, "m")
-    #gdpnow_reader("/Users/inigo/Downloads/GDPTrackingModelDataAndForecasts.xlsx")
+    #shadow_r_reader("/Users/inigo/Downloads/WuXiaShadowRate.xlsx", namedict, "m")
+    gdpnow_reader("/Users/inigo/Downloads/GDPTrackingModelDataAndForecasts.xlsx", "AGDPNO", "q")

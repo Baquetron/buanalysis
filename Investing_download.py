@@ -13,6 +13,17 @@ from time import strptime
 import PMI_cleaner
 
 def download(json_dict, name_dict):
+    headers = ["Release_M_", "Release_D_", "Release_Y_", "Actual_M_", "Release_H_", "Actual_", "Forecast_", "Prev_"]
+    headers = headers + name_dict
+    """release_m = "Release_M_" + name_dict
+    release_d = "Release_D_" + name_dict
+    release_y = "Release_Y_" + name_dict
+    actual_m = "Actual_M_" + name_dict
+    release_h = "Release_H_" + name_dict
+    actual = "Actual_" + name_dict
+    forecast = "Forecast_" + name_dict
+    prev = "Prev_" + name_dict"""
+
     table_rows = []
     options = webdriver.ChromeOptions()
     options.add_argument("start-maximized")
@@ -49,7 +60,7 @@ def download(json_dict, name_dict):
     #WebDriverWait(driver, 20).until(EC.element_to_be_clickable((By.CSS_SELECTOR, "div.showMoreReplies.block>a"))).click()
     #WebDriverWait(driver, 20).until(lambda driver: len(driver.find_elements_by_css_selector("table.genTbl.openTbl.ecHistoryTbl tr[id^='historicEvent']")) > myLength)
     #table_rows = driver.find_elements_by_css_selector("table.genTbl.openTbl.ecHistoryTbl tr[id^='historicEvent']")
-    headers = ["Release_M", "Release_D", "Release_Y", "Actual_M", "Release_H", "Actual", "Forecast", "Prev"]
+    #headers = [release_m, release_d, release_y, actual_m, release_h, actual, forecast, prev]
     init_row = 0
     for i, row in enumerate(table_rows):
         line = str(row.text).replace(",", "").replace("(", "").replace(")", "").split()

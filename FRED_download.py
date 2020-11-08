@@ -7,6 +7,9 @@ _API_KEY = 'd03138bb083102e1cfb0f3fe96737854'
 _DATE_START = "2014-01-01"
 
 def download(json_dict, name_dict):
+    actual_date = "Actual_Date_" + name_dict
+    actual = "Actual_" + name_dict
+    
     fr = Fred(api_key=_API_KEY,response_type='df')
     freq = json_dict['freq']
     params = {
@@ -19,12 +22,12 @@ def download(json_dict, name_dict):
 
     res = fr.series.observations(json_dict['Id'], params=params)
     res = res.drop(['realtime_end', 'realtime_start'], axis=1)
-    res.columns = ["Actual_Date", "Actual"]
+    res.columns = [actual_date, actual]
 
     if freq == "m" or freq == "q":
-        res["Actual_Date"] = res["Actual_Date"].apply(lambda x: str(x)[0:7])
+        res[actual_date] = res[actual_date].apply(lambda x: str(x)[0:7])
     elif freq == "y":
-        res["Actual_Date"] = res["Actual_Date"].apply(lambda x: str(x)[0:4])
+        res[actual_date] = res[actual_date].apply(lambda x: str(x)[0:4])
 
     #res.to_csv("data/" + name_dict + ".csv")
     con = sqlite3.connect("data/db/economic_data.sqlite")

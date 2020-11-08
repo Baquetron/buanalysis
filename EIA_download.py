@@ -12,17 +12,22 @@ def download(json_dict, name_dict):
     url = "http://api.eia.gov/series/?api_key=" + _API_KEY + "&series_id=" +  json_dict['Id']
     r = requests.get(url)
     json_data = r.json()
+    year = "Y_" + name_dict
+    month = "M_" + name_dict
+    day = "D_" + name_dict
+    actual_date = "Actual_Date_" + name_dict
+    actual = "Actual_" + name_dict
     
-    df = pandas.DataFrame(json_data.get("series")[0].get("data"), columns = ["Date", "Actual"])
-    df.set_index("Date", drop=True, inplace=True)
+    df = pandas.DataFrame(json_data.get("series")[0].get("data"), columns = [actual_date, actual])
+    df.set_index(actual_date, drop=True, inplace=True)
     final_data.append(df)
     
     crude = pandas.concat(final_data, axis=1)
     crude["Year"] = crude.index.astype(str).str[:4]
     crude["Month"] = crude.index.astype(str).str[4:]
     crude["Day"] = 1
-    crude["Actual_Date"] = pandas.to_datetime(crude[["Year", "Month", "Day"]])
-    crude.set_index("Actual_Date",drop=True,inplace=True)
+    crude[actual_date] = pandas.to_datetime(crude[["Year", "Month", "Day"]])
+    crude.set_index(actual_date,drop=True,inplace=True)
     crude.sort_index(inplace=True)
     crude = crude[_DATE_START:_DATE_END]
     crude = crude.iloc[:,:5]
@@ -31,3 +36,13 @@ def download(json_dict, name_dict):
     con = sqlite3.connect("data/db/economic_data.sqlite")
     crude.to_sql(name=name_dict, con=con)
     return True
+
+if __name__ == "__main__":
+    mydict = {
+		"name": "Gulf coast refinery and blender net input of crude oil",
+		"src": "EIA",
+		"freq": "m",
+		"Id": "PET.MCRRIP32.M"
+	}
+    namedict = "EPETM"
+    download(mydict, namedict)
