@@ -11,18 +11,11 @@
 		"freq": "m",
 		"filename": "WuXiaShadowRate.xlsx",
 		"src_link": "https://www.frbatlanta.org/cqer/research/wu-xia-shadow-federal-funds-rate"
-	},
-	"IPMIM": {
-		"name": "U.S. Manufacturing Purchasing Managers Index (PMI)",
-		"src": "Investing",
-		"freq": "m",
-		"forecast": "Y",
-		"src_link": "https://www.investing.com/economic-calendar/manufacturing-pmi-829"
-	},
+	},	
 	"FM2W": {
 		"name": "M2 Money Stock",
 		"src": "FRED",
-		"freq": "w",
+		"freq": "wem",
 		"units":"chg",
 		"Id": "M2"
 	},
@@ -92,7 +85,7 @@
 	"FRBRW": {
 		"name": "Reserve Balances Required; Reserve Balance Requirements (DISCONTINUED)",
 		"src": "FRED",
-		"freq": "w",
+		"freq": "wew",
 		"units": "lin",
 		"Id": "RESBALREQW"
 	},
@@ -106,14 +99,14 @@
 	"FCAILW": {
 		"name": "Commercial and Industrial Loans, All Commercial Banks",
 		"src": "FRED",
-		"freq": "w",
+		"freq": "wew",
 		"units": "chg",
 		"Id": "TOTCI"
 	},
 	"FLESSW": {
 		"name": "LESS: Allowance for Loan and Lease Losses, All Commercial Banks",
 		"src": "FRED",
-		"freq": "w",
+		"freq": "wew",
 		"units": "lin",
 		"Id": "ALLACBW027SBOG"
 	},

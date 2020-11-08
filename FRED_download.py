@@ -8,7 +8,7 @@ _DATE_START = "2014-01-01"
 
 def download(json_dict, name_dict):
     fr = Fred(api_key=_API_KEY,response_type='df')
-    freq = json_dict['freq'],
+    freq = json_dict['freq']
     params = {
             "output_type": 1,
             "observation_start": _DATE_START,
@@ -21,9 +21,7 @@ def download(json_dict, name_dict):
     res = res.drop(['realtime_end', 'realtime_start'], axis=1)
     res.columns = ["Actual_Date", "Actual"]
 
-    if freq == "d" or freq == "w" or freq == "o":
-        pass
-    elif freq == "m" or freq == "q":
+    if freq == "m" or freq == "q":
         res["Actual_Date"] = res["Actual_Date"].apply(lambda x: str(x)[0:7])
     elif freq == "y":
         res["Actual_Date"] = res["Actual_Date"].apply(lambda x: str(x)[0:4])
@@ -45,11 +43,11 @@ if __name__ == "__main__":
         name = "F3MLD"""
 
         mydict = {
-		"name": "M2 Money Stock",
+		"name": "Federal Reserve Total Assets",
 		"src": "FRED",
 		"freq": "w",
-		"units":"chg",
-		"Id": "M2"
+		"units": "lin",
+		"Id": "WALCL"
 	}
-        name = "FM2W"
+        name = "FFRTAW"
         download(mydict, name)
