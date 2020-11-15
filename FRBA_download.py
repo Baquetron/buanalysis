@@ -106,7 +106,7 @@ def shadow_r_reader(filepath, name_dict, freq):
     if freq == "d" or freq == "w" or freq == "o":
         pass
     elif freq == "m" or freq == "q":
-        wuxia_pd[actual_date] = wuxia_pd[actual_date].apply(lambda x: str(x)[0:7])
+        wuxia_pd[actual_date] = wuxia_pd[actual_date].apply(lambda x: str(x)[0:7]+"-01")
     elif freq == "y":
         wuxia_pd[actual_date] = wuxia_pd[actual_date].apply(lambda x: str(x)[0:4])
 
@@ -142,13 +142,13 @@ def gdpnow_reader(filepath, name_dict, freq):
 
 if __name__ == "__main__":
     mydict = {
-		"name": "Wu-Xia Shadow Federal Funds Rate",
+		"name": "GDPNow",
 		"src": "FRBAtlanta",
-		"freq": "m",
-		"filename": "WuXiaShadowRate.xlsx",
-		"src_link": "https://www.frbatlanta.org/cqer/research/wu-xia-shadow-federal-funds-rate"
+		"freq": "o",
+		"filename": "GDPTrackingModelDataAndForecasts.xlsx",
+		"src_link": "https://www.frbatlanta.org/cqer/research/gdpnow"
 	}
-    namedict = "AWXSFRM"
-    #download(mydict, namedict)
+    namedict = "AGDPNO"
+    download(mydict, namedict)
     #shadow_r_reader("/Users/inigo/Downloads/WuXiaShadowRate.xlsx", namedict, "m")
-    gdpnow_reader("/Users/inigo/Downloads/GDPTrackingModelDataAndForecasts.xlsx", "AGDPNO", "q")
+    #gdpnow_reader("/Users/inigo/Downloads/GDPTrackingModelDataAndForecasts.xlsx", "AGDPNO", "q")
