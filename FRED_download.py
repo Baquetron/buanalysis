@@ -46,11 +46,11 @@ if __name__ == "__main__":
         name = "F3MLD"""
 
         mydict = {
-		"name": "Federal Reserve Total Assets",
+		"name": "GDP",
 		"src": "FRED",
-		"freq": "w",
+		"freq": "q",
 		"units": "lin",
-		"Id": "WALCL"
+		"Id": "GDP"
 	}
-        name = "FFRTAW"
+        name = "FGDPQ"
         download(mydict, name)

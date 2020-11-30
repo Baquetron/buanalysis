@@ -19,6 +19,13 @@
 		"units":"chg",
 		"Id": "M2"
 	},
+	"FM2LW": {
+		"name": "M2 Money Stock",
+		"src": "FRED",
+		"freq": "wem",
+		"units":"lin",
+		"Id": "M2"
+	},
 	"FEFFRM": {
 		"name": "Effective Federal Funds Rate",
 		"src": "FRED",
@@ -116,5 +123,12 @@
 		"freq": "o",
 		"filename": "GDPTrackingModelDataAndForecasts.xlsx",
 		"src_link": "https://www.frbatlanta.org/cqer/research/gdpnow"
+	},
+	"FGDPQ": {
+		"name": "GDP",
+		"src": "FRED",
+		"freq": "q",
+		"units": "lin",
+		"Id": "GDP"
 	}
 }
