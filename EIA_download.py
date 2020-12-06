@@ -32,9 +32,12 @@ def download(json_dict, name_dict):
     crude = crude[_DATE_START:_DATE_END]
     crude = crude.iloc[:,:5]
     
+    table = crude.iloc[: , [0]].copy()
+    table = table.reset_index()
+    
     #crude.to_csv("data/" + name_dict + ".csv")
     con = sqlite3.connect("data/db/economic_data.sqlite")
-    crude.to_sql(name=name_dict, con=con)
+    table.to_sql(name=name_dict, con=con)
     return True
 
 if __name__ == "__main__":
