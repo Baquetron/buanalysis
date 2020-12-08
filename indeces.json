@@ -1,9 +1,27 @@
 {
-	"EPETM": {
-		"name": "Gulf coast refinery and blender net input of crude oil",
+	"EPETWIM": {
+		"name": "U.S. Imports of Crude Oil and Petroleum Products, Weekly",
+		"src": "EIA",
+		"freq": "w",
+		"Id": "PET.WTTIMUS2.W"
+	},
+	"EPETWPS": {
+		"name": "U.S. Product Supplied of Petroleum Products, Weekly",
+		"src": "EIA",
+		"freq": "w",
+		"Id": "PET.WRPUPUS2.W"
+	},
+	"EPETWEX": {
+		"name": "U.S. Exports of Crude Oil and Petroleum Products, Weekly",
+		"src": "EIA",
+		"freq": "w",
+		"Id": "PET.WTTEXUS2.W"
+	},
+	"EPETWFI": {
+		"name": "U.S. Field Production of Crude Oil, Monthly",
 		"src": "EIA",
 		"freq": "m",
-		"Id": "PET.MCRRIP32.M"
+		"Id": "PET.MCRFPUS1.M"
 	},
 	"AWXSFRM": {
 		"name": "Wu-Xia Shadow Federal Funds Rate",

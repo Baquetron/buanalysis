@@ -8,6 +8,7 @@ _DATE_START = "2014-01-01"
 _DATE_END = "2021-01-01"
 
 def download(json_dict, name_dict):
+    freq = json_dict['freq']
     final_data = []
     url = "http://api.eia.gov/series/?api_key=" + _API_KEY + "&series_id=" +  json_dict['Id']
     r = requests.get(url)
@@ -23,9 +24,15 @@ def download(json_dict, name_dict):
     final_data.append(df)
     
     crude = pandas.concat(final_data, axis=1)
-    crude["Year"] = crude.index.astype(str).str[:4]
-    crude["Month"] = crude.index.astype(str).str[4:]
-    crude["Day"] = 1
+    if freq == "w":
+        crude["Year"] = crude.index.astype(str).str[:4]
+        crude["Month"] = crude.index.astype(str).str[4:6]
+        crude["Day"] = crude.index.astype(str).str[6:]
+    elif freq == "m":
+        crude["Year"] = crude.index.astype(str).str[:4]
+        crude["Month"] = crude.index.astype(str).str[4:]
+        crude["Day"] = 1
+        
     crude[actual_date] = pandas.to_datetime(crude[["Year", "Month", "Day"]])
     crude.set_index(actual_date,drop=True,inplace=True)
     crude.sort_index(inplace=True)
@@ -35,9 +42,12 @@ def download(json_dict, name_dict):
     table = crude.iloc[: , [0]].copy()
     table = table.reset_index()
     
+    reversed_table = table.iloc[::-1]
+    reversed_table = reversed_table.reset_index(drop=True)
+
     #crude.to_csv("data/" + name_dict + ".csv")
     con = sqlite3.connect("data/db/economic_data.sqlite")
-    table.to_sql(name=name_dict, con=con)
+    reversed_table.to_sql(name=name_dict, con=con)
     return True
 
 if __name__ == "__main__":
