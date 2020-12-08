@@ -27,17 +27,15 @@ df_m2 = pandas.read_sql_query(
     "SELECT DATE(Actual_Date_FM2LW) AS DATE, Actual_FM2LW FROM FM2LW", con)
 df_last_q_gdp = pandas.read_sql_query(
     "SELECT DATE(Actual_Date_FGDPQ) AS DATE, Actual_FGDPQ FROM FGDPQ LIMIT 1", con)
-
 last_q_gdp = df_last_q_gdp.at[0, 'Actual_FGDPQ']
 df_gdpnow['Actual_AGDPNO_lin'] = ((df_gdpnow['Actual_AGDPNO']/100)+1)*last_q_gdp
-
 
 df_m2['Quarter'] = df_m2['DATE'].apply(lambda x: q_identifier(x))
 current_q = df_m2.at[0, 'Quarter']
 df_m2 = df_m2.loc[df_m2['Quarter'] == current_q]
 df_m2["Q_avg_FM2LW"] = df_m2['Actual_FM2LW'].sort_values(ascending=True).expanding().mean()
 df_m2 = df_m2.drop(['Quarter'], axis=1)
-#df_vom2 = pandas.concat([df_gdpnow, df_m2], axis=1)
+
 df_vom2 = df_gdpnow.append(df_m2, ignore_index=True, sort=False) #Appends second df to end of 1st df
 d = {'Actual_AGDPNO':'first', 'Actual_AGDPNO_lin':'first', 'Actual_FM2LW':'last', 'Q_avg_FM2LW':'last'}
 df_vom2 = df_vom2.groupby('DATE', sort=False, as_index=False).agg(d) #Groups df taking 1st the att from 1st df

@@ -29,9 +29,9 @@ def download(json_dict, name_dict):
     elif freq == "y":
         res[actual_date] = res[actual_date].apply(lambda x: str(x)[0:4])
 
-    #res.to_csv("data/" + name_dict + ".csv")
-    con = sqlite3.connect("data/db/economic_data.sqlite")
-    res.to_sql(name=name_dict, con=con)
+    res.to_csv("data/" + name_dict + ".csv")
+    #con = sqlite3.connect("data/db/economic_data.sqlite")
+    #res.to_sql(name=name_dict, con=con)
 
     return True
 
@@ -46,11 +46,11 @@ if __name__ == "__main__":
         name = "F3MLD"""
 
         mydict = {
-		"name": "GDP",
+		"name": "Effective Federal Funds Rate",
 		"src": "FRED",
-		"freq": "q",
+		"freq": "m",
 		"units": "lin",
-		"Id": "GDP"
+		"Id": "FEDFUNDS"
 	}
-        name = "FGDPQ"
+        name = "FEFFRM"
         download(mydict, name)

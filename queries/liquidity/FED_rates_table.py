@@ -1,0 +1,24 @@
+import sqlite3
+import pandas
+from datetime import datetime
+
+
+con = sqlite3.connect("data/db/economic_data.sqlite")
+out = sqlite3.connect("data/db/dashboard_data.sqlite")
+
+def fed_rates_table(con, a1, a2, a3, a4):
+    df = pandas.read_sql_query(
+        "SELECT DATE FROM (SELECT strftime('%Y-%m', Actual_Date_FFFTULD) AS DATE, Actual_FFFTULD, Actual_FFFTLLD FROM FFFTULD, FFFTLLD WHERE Actual_Date_FFFTULD = Actual_Date_FFFTLLD GROUP BY DATE ORDER BY DATE DESC)", con)
+    print(df)
+    #df.to_sql(name="Fed_rates", con=out))
+
+
+if __name__ == "__main__":
+    con = sqlite3.connect("data/db/economic_data.sqlite")
+    out = sqlite3.connect("data/db/dashboard_data.sqlite")
+    a = "FFFTULD"
+    arg1 = "FFFTLLD"
+    arg2 = "FEFFRM"
+    arg3 = "AWXSFRM"
+    #simple_table_to_plot(con, out, a, arg1, arg2, arg3)
+    fed_rates_table(con, a, arg1, arg2, arg3)
