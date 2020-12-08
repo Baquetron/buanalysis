@@ -36,8 +36,13 @@ df_m2['Quarter'] = df_m2['DATE'].apply(lambda x: q_identifier(x))
 current_q = df_m2.at[0, 'Quarter']
 df_m2 = df_m2.loc[df_m2['Quarter'] == current_q]
 df_m2["Q_avg_FM2LW"] = df_m2['Actual_FM2LW'].sort_values(ascending=True).expanding().mean()
+df_m2 = df_m2.drop(['Quarter'], axis=1)
+#df_vom2 = pandas.concat([df_gdpnow, df_m2], axis=1)
+df_vom2 = df_gdpnow.append(df_m2, ignore_index=True, sort=False) #Appends second df to end of 1st df
+d = {'Actual_AGDPNO':'first', 'Actual_AGDPNO_lin':'first', 'Actual_FM2LW':'last', 'Q_avg_FM2LW':'last'}
+df_vom2 = df_vom2.groupby('DATE', sort=False, as_index=False).agg(d) #Groups df taking 1st the att from 1st df
+df_vom2 = df_vom2.sort_values(['DATE'], ascending=True).reset_index(drop=True)
+df_vom2 = df_vom2.fillna(method="ffill").fillna(method="bfill")
+df_vom2['Actual_VOM2'] = df_vom2['Actual_AGDPNO_lin']/df_vom2['Q_avg_FM2LW']
 
-#df_m2 = df_m2.groupby(['Quarter'])['Actual_FM2LW'].mean().reset_index(name='Average_FM2LW').sort_values(by=['Quarter'], ascending=False).reset_index(drop=True)
-
-print(df_gdpnow)
-#df.to_sql(name="GDPNOW_current_quarter", con=out)
+df_vom2.to_sql(name="GDPNow_vs_VoM2_current_quarter", con=out)
