@@ -8,7 +8,8 @@ out = sqlite3.connect("data/db/dashboard_data.sqlite")
 
 def fed_rates_table(con, a1, a2, a3, a4):
     df = pandas.read_sql_query(
-        "SELECT DATE FROM (SELECT strftime('%Y-%m', Actual_Date_FFFTULD) AS DATE, Actual_FFFTULD, Actual_FFFTLLD FROM FFFTULD, FFFTLLD WHERE Actual_Date_FFFTULD = Actual_Date_FFFTLLD GROUP BY DATE ORDER BY DATE DESC)", con)
+        "SELECT DATE, Actual_FFFTULD, Actual_FFFTLLD, Actual_FEFFRM, Actual_AWXSFRM FROM (SELECT strftime('%Y-%m', Actual_Date_FFFTULD) AS DATE, Actual_FFFTULD, Actual_FFFTLLD FROM FFFTULD, FFFTLLD, AWXSFRM WHERE Actual_Date_FFFTULD = Actual_Date_FFFTLLD GROUP BY DATE ORDER BY DATE DESC), FEFFRM, AWXSFRM WHERE (DATE = Actual_Date_FEFFRM AND Actual_Date_FEFFRM = strftime('%Y-%m', Actual_Date_AWXSFRM))", con)
+
     print(df)
     #df.to_sql(name="Fed_rates", con=out))
 

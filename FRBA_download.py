@@ -110,6 +110,8 @@ def shadow_r_reader(filepath, name_dict, freq):
     elif freq == "y":
         wuxia_pd[actual_date] = wuxia_pd[actual_date].apply(lambda x: str(x)[0:4])
 
+    wuxia_pd.dropna(subset=[actual], inplace=True)
+
     #wuxia_pd.to_csv("data/" + name_dict + ".csv")
     con = sqlite3.connect("data/db/economic_data.sqlite")
     wuxia_pd.to_sql(name=name_dict, con=con)
@@ -148,7 +150,7 @@ if __name__ == "__main__":
 		"filename": "GDPTrackingModelDataAndForecasts.xlsx",
 		"src_link": "https://www.frbatlanta.org/cqer/research/gdpnow"
 	}
-    namedict = "AGDPNO"
-    download(mydict, namedict)
+    namedict = "AWXSFRM"
+    #download(mydict, namedict)
     #shadow_r_reader("/Users/inigo/Downloads/WuXiaShadowRate.xlsx", namedict, "m")
     #gdpnow_reader("/Users/inigo/Downloads/GDPTrackingModelDataAndForecasts.xlsx", "AGDPNO", "q")
