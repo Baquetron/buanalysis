@@ -14,6 +14,8 @@ class cvo2m_tables:
             "SELECT DATE(Actual_Date_FM2LW) AS DATE, Actual_FM2LW FROM FM2LW", self.con)
         self.df_vom2 = pandas.read_sql_query(
             "SELECT Actual_Date_FVM2 AS DATE, Actual_FVM2 FROM FVM2", self.con)
+        self.df_gdpnowq = pandas.read_sql_query(
+            "SELECT Actual_Date_FGDPNQ AS DATE, Actual_FGDPNQ FROM FGDPNQ", self.con)
 
     def __init__(self, con, out): 
         self.con = con
@@ -68,13 +70,26 @@ class cvo2m_tables:
     def vom2_q_table(self):
         self.vom2now_table(0)
         vom2_now_q = self.df_vom2now.iloc[0, :]["DATE"][0:7], self.df_vom2now.iloc[0, :]["Actual_VOM2"]
-        df_vom2q = self.df_vom2.append(pandas.Series(vom2_now_q, index=['DATE','Actual_FVM2']), ignore_index=True).sort_values(axis=0, by=['DATE'], ascending=False)
-        df_vom2q['Quarter'] = df_vom2q['DATE'].apply(lambda x: self.q_identifier_m(x))
+        self.df_vom2q = self.df_vom2.append(pandas.Series(vom2_now_q, index=['DATE','Actual_FVM2']), ignore_index=True).sort_values(axis=0, by=['DATE'], ascending=False).reset_index(drop=True)
+        self.df_vom2q['Quarter'] = self.df_vom2q['DATE'].apply(lambda x: self.q_identifier_m(x))
         
-        self.df_vom2now.to_sql(name="VoM2_quearterly", con=self.out)
+    def gdp_q_table(self):
+        self.vom2now_table(0)
+        self.df_gdpnowq['Quarter'] = self.df_gdpnowq['DATE'].apply(lambda x: self.q_identifier_m(x))
+        
+    def gdp_vom2_q_table(self, w_sql=1):
+        self.vom2_q_table()
+        self.gdp_q_table()
+        self.df_vom2q.rename(columns={'DATE':'DATE_FVM2'}, inplace=True)
+        self.df_gdpnowq.rename(columns={'DATE':'DATE_FGDPNQ'}, inplace=True)
+        #self.df_gdp_vom2_q = pandas.concat([self.df_vom2q, self.df_gdpnowq], axis=1, sort=False, join='outer')
+        self.df_gdp_vom2_q = pandas.merge(left=self.df_gdpnowq, right=self.df_vom2q, on='Quarter', left_index=True)
+        
+        if w_sql == 1:
+            self.df_vom2now.to_sql(name="GDP_vs_Vom2_quarterly", con=self.out)
 
 if __name__ == "__main__":
     con = sqlite3.connect("data/db/economic_data.sqlite")
     out = sqlite3.connect("data/db/dashboard_data.sqlite")
     obj = cvo2m_tables(con, out)
-    obj.vom2_q_table()
+    obj.gdp_vom2_q_table()
