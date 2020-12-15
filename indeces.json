@@ -130,5 +130,89 @@
 		"freq": "q",
 		"units": "lin",
 		"Id": "GDP"
+	},
+	"F30YBD": {
+		"name": "30-Year Treasury Constant Maturity Rate",
+		"src": "FRED",
+		"freq": "d",
+		"units": "lin",
+		"Id": "DGS30"
+	},
+	"F20YBD": {
+		"name": "20-Year Treasury Constant Maturity Rate",
+		"src": "FRED",
+		"freq": "d",
+		"units": "lin",
+		"Id": "DGS20"
+	},
+	"F10YBD": {
+		"name": "10-Year Treasury Constant Maturity Rate",
+		"src": "FRED",
+		"freq": "d",
+		"units": "lin",
+		"Id": "DGS10"
+	},
+	"F5YBD": {
+		"name": "5-Year Treasury Constant Maturity Rate",
+		"src": "FRED",
+		"freq": "d",
+		"units": "lin",
+		"Id": "DGS5"
+	},
+	"F2YBD": {
+		"name": "2-Year Treasury Constant Maturity Rate",
+		"src": "FRED",
+		"freq": "d",
+		"units": "lin",
+		"Id": "DGS2"
+	},
+	"F1YBD": {
+		"name": "1-Year Treasury Constant Maturity Rate",
+		"src": "FRED",
+		"freq": "d",
+		"units": "lin",
+		"Id": "DGS1"
+	},
+	"F6MBD": {
+		"name": "6-Month Treasury Constant Maturity Rate",
+		"src": "FRED",
+		"freq": "d",
+		"units": "lin",
+		"Id": "DGS6MO"
+	},
+	"F3MBD": {
+		"name": "3-Month Treasury Constant Maturity Rate",
+		"src": "FRED",
+		"freq": "d",
+		"units": "lin",
+		"Id": "DGS3MO"
+	},
+	"F1MBD": {
+		"name": "1-Month Treasury Constant Maturity Rate",
+		"src": "FRED",
+		"freq": "d",
+		"units": "lin",
+		"Id": "DGS1MO"
+	},
+	"F30YIBD": {
+		"name": "30-Year Treasury Inflation-Indexed Security, Constant Maturity",
+		"src": "FRED",
+		"freq": "d",
+		"units": "lin",
+		"Id": "DFII30"
+	},
+	"F20YIBD": {
+		"name": "20-Year Treasury Inflation-Indexed Security, Constant Maturity",
+		"src": "FRED",
+		"freq": "d",
+		"units": "lin",
+		"Id": "DFII20"
+	},
+	"F10YIBD": {
+		"name": "10-Year Treasury Inflation-Indexed Security, Constant Maturity",
+		"src": "FRED",
+		"freq": "d",
+		"units": "lin",
+		"Id": "DFII10"
 	}
 }

@@ -6,7 +6,7 @@ from datetime import datetime
 _API_KEY = 'd03138bb083102e1cfb0f3fe96737854'
 _DATE_START = "2014-01-01"
 
-def download(json_dict, name_dict):
+def download(json_dict, name_dict, to_sql=True):
     actual_date = "Actual_Date_" + name_dict
     actual = "Actual_" + name_dict
     
@@ -29,9 +29,11 @@ def download(json_dict, name_dict):
     elif freq == "y":
         res[actual_date] = res[actual_date].apply(lambda x: str(x)[0:4])
 
-    #res.to_csv("data/" + name_dict + ".csv")
-    con = sqlite3.connect("data/db/economic_data.sqlite")
-    res.to_sql(name=name_dict, con=con)
+    if to_sql == True:
+        con = sqlite3.connect("data/db/economic_data.sqlite")
+        res.to_sql(name=name_dict, con=con)
+    else:
+        res.to_csv("data/" + name_dict + ".csv")
 
     return True
 
@@ -46,11 +48,11 @@ if __name__ == "__main__":
         name = "F3MLD"""
 
         mydict = {
-		"name": "GDPNow",
+		"name": "30-Year Treasury Constant Maturity Rate",
 		"src": "FRED",
-		"freq": "q",
+		"freq": "d",
 		"units": "lin",
-		"Id": "GDPNOW"
+		"Id": "DGS30"
 	}
-        name = "FGDPNQ"
-        download(mydict, name)
+        name = "F30YBD"
+        download(mydict, name, False)
