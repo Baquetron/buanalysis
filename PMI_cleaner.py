@@ -12,16 +12,25 @@ def ism_execute(name_dict, to_sql=True):
     Release_Y = "Release_Y_" + name_dict
     Release_M = "Release_M_" + name_dict
     Release_D = "Release_D_" + name_dict
+    Release_H = "Release_H_" + name_dict
     Release_Date = "Release_Date_" + name_dict
     Actual_Date = "Actual_Date_" + name_dict
     Prev = "Prev_" + name_dict
 
     # Detect in which row the mistmatch is
     table = pandas.read_csv(filepath_or_buffer=path, index_col= 0)
-    for i, elem in enumerate(pandas.isnull(table[Prev])):
-        if elem == True:
+    month_col = table[Actual_M]
+    for i, elem in enumerate(month_col):
+        if ":" in elem:
             init_pos = i
             break
+
+    # Detect in which row notation chages again. Is excluded from storage
+    for i, elem in enumerate(table[Release_H]):
+        if "04:00" in elem:
+            last_pos = i-1
+            break
+    table = table.loc[:last_pos]
 
     # Trasnform previous months names
     table[Release_M] = table[Release_M].apply(lambda x: strptime(x, '%b').tm_mon).astype('uint8')
@@ -68,7 +77,8 @@ def ism_execute(name_dict, to_sql=True):
         con = sqlite3.connect("data/db/economic_data.sqlite")
         table.to_sql(name=name_dict, con=con)
     else:
-        table.to_csv(path)
+        print(table)
+        #table.to_csv(path)
 
 def markit_execute(name_dict, to_sql=True):
     path = "data/" + name_dict + ".csv"
@@ -119,4 +129,5 @@ def markit_execute(name_dict, to_sql=True):
 
 
 if __name__ == "__main__":
-    markit_execute("IPMIMM", False)
+    ism_execute("IPMINMISMM", False)
+    #markit_execute("IPMIMM", False)
