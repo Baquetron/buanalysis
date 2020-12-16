@@ -12,26 +12,18 @@ import calendar
 from time import strptime
 import PMI_cleaner
 
-def download(json_dict, name_dict):
+def download(json_dict, name_dict, to_sql=True):
     headers = ["Release_M_", "Release_D_", "Release_Y_", "Actual_M_", "Release_H_", "Actual_", "Forecast_", "Prev_"]
-    headers = headers + name_dict
-    """release_m = "Release_M_" + name_dict
-    release_d = "Release_D_" + name_dict
-    release_y = "Release_Y_" + name_dict
-    actual_m = "Actual_M_" + name_dict
-    release_h = "Release_H_" + name_dict
-    actual = "Actual_" + name_dict
-    forecast = "Forecast_" + name_dict
-    prev = "Prev_" + name_dict"""
+    headers = [s + name_dict for s in headers]
 
     table_rows = []
     options = webdriver.ChromeOptions()
     options.add_argument("start-maximized")
     options.add_argument('disable-infobars')
     try:
-        driver = webdriver.Chrome("tools/bin/gc84/chromedriver.exe", chrome_options=options)
+        driver = webdriver.Chrome("tools/bin/gc84/chromedriver.exe", options=options)
     except:
-        driver = webdriver.Chrome("tools/bin/chromedriver", chrome_options=options)
+        driver = webdriver.Chrome("tools/bin/chromedriver", options=options)
     # Minimize browser
     driver.set_window_position(-2000,0)
     time.sleep(3)
@@ -57,15 +49,17 @@ def download(json_dict, name_dict):
         except TimeoutException:
             break
 
-    #WebDriverWait(driver, 20).until(EC.element_to_be_clickable((By.CSS_SELECTOR, "div.showMoreReplies.block>a"))).click()
-    #WebDriverWait(driver, 20).until(lambda driver: len(driver.find_elements_by_css_selector("table.genTbl.openTbl.ecHistoryTbl tr[id^='historicEvent']")) > myLength)
-    #table_rows = driver.find_elements_by_css_selector("table.genTbl.openTbl.ecHistoryTbl tr[id^='historicEvent']")
-    #headers = [release_m, release_d, release_y, actual_m, release_h, actual, forecast, prev]
+    """WebDriverWait(driver, 20).until(EC.element_to_be_clickable((By.CSS_SELECTOR, "div.showMoreReplies.block>a"))).click()
+    WebDriverWait(driver, 20).until(lambda driver: len(driver.find_elements_by_css_selector("table.genTbl.openTbl.ecHistoryTbl tr[id^='historicEvent']")) > myLength)
+    table_rows = driver.find_elements_by_css_selector("table.genTbl.openTbl.ecHistoryTbl tr[id^='historicEvent']")"""
+
     init_row = 0
     for i, row in enumerate(table_rows):
         line = str(row.text).replace(",", "").replace("(", "").replace(")", "").split()
         if i == init_row:
             prev = line.pop()
+            if len(line)== len(headers)-1:  #Line ok
+                line.extend(prev)
             if len(line) == len(headers)-2: #Actual missing
                 forecast = line.pop()
                 line.extend(['0.0',forecast,prev]) 
@@ -80,22 +74,23 @@ def download(json_dict, name_dict):
 
     table = pandas.DataFrame(matrix, columns=headers)
     # Get to csv
-    #path = "data/" + name_dict + "_temp.csv"
     path = "data/" + name_dict + ".csv"
     table.to_csv(path)
     driver.quit()
 
-    if name_dict == "IPMIM":    # Special data preparation for PMI
-        PMI_cleaner.execute(path)
-        #pass
+    if "ism" in json_dict['src_link']:    # Special data preparation for PMI
+        PMI_cleaner.ism_execute(name_dict, to_sql)
+    else:
+        pass
+        
     return True
 
 if __name__ == "__main__":
     index = {
-		"name": "U.S. Manufacturing Purchasing Managers Index (PMI)",
-		"src": "Investing",
-		"freq": "m",
-		"forecast": "Y",
-		"src_link": "https://www.investing.com/economic-calendar/manufacturing-pmi-829"
+		"name": "U.S. ISM Manufacturing Purchasing Managers Index (PMI)",	
+		"src": "Investing",	
+		"freq": "m",	
+		"forecast": "Y",	
+		"src_link": "https://www.investing.com/economic-calendar/ism-manufacturing-pmi-173"	
 	}
-    download(index, "IPMIM")
+    download(index, "IPMIMISMM", False)

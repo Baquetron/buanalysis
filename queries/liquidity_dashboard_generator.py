@@ -2,7 +2,7 @@ import sqlite3
 import liquidity.fed_rates_table as fed_rates_table
 import liquidity.stock_indeces_table as stock_indeces_table
 from liquidity.vom2_tables import cvo2m_tables
-import liquidity.bond_rates_table as bond_rates_table
+import liquidity.bond_yields_table as bond_yields_table
 import generic.simple_table as simple_table
 
 class cliqdash:

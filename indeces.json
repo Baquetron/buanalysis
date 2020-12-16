@@ -214,5 +214,40 @@
 		"freq": "d",
 		"units": "lin",
 		"Id": "DFII10"
+	},
+	"IPMICMM": {	
+		"name": "U.S. Markit Composite Purchasing Managers Index (PMI)",	
+		"src": "Investing",	
+		"freq": "m",	
+		"forecast": "Y",	
+		"src_link": "https://www.investing.com/economic-calendar/markit-composite-pmi-1492"	
+	},
+	"IPMIMM": {	
+		"name": "U.S. Manufacturing Purchasing Managers Index (PMI)",	
+		"src": "Investing",	
+		"freq": "m",	
+		"forecast": "Y",	
+		"src_link": "https://www.investing.com/economic-calendar/manufacturing-pmi-829"	
+	},
+	"IPMISM": {	
+		"name": "U.S. Services Purchasing Managers Index (PMI)",	
+		"src": "Investing",	
+		"freq": "m",	
+		"forecast": "Y",	
+		"src_link": "https://www.investing.com/economic-calendar/services-pmi-1062"	
+	},
+	"IPMIMISMM": {	
+		"name": "U.S. ISM Manufacturing Purchasing Managers Index (PMI)",	
+		"src": "Investing",	
+		"freq": "m",	
+		"forecast": "Y",	
+		"src_link": "https://www.investing.com/economic-calendar/ism-manufacturing-pmi-173"	
+	},
+	"IPMINMISMM": {	
+		"name": "U.S. ISM Non-Manufacturing Purchasing Managers Index (PMI)",	
+		"src": "Investing",	
+		"freq": "m",	
+		"forecast": "Y",	
+		"src_link": "https://www.investing.com/economic-calendar/ism-non-manufacturing-pmi-176"	
 	}
 }
