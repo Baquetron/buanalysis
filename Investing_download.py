@@ -10,7 +10,7 @@ import time
 import re
 import calendar
 from time import strptime
-import PMI_cleaner
+import pmi_cleaner
 
 def download(json_dict, name_dict, to_sql=True):
     headers = ["Release_M_", "Release_D_", "Release_Y_", "Actual_M_", "Release_H_", "Actual_", "Forecast_", "Prev_"]
@@ -40,8 +40,15 @@ def download(json_dict, name_dict, to_sql=True):
     driver.execute_script("arguments[0].scrollIntoView(true);",show_more_button)
     myLength = len(WebDriverWait(driver, 20).until(EC.visibility_of_all_elements_located((By.CSS_SELECTOR, "table.genTbl.openTbl.ecHistoryTbl tr[id^='historicEvent']"))))
 
+    #Erase video elem from lower left video corner
+    element = driver.find_element_by_id('video')
+    driver.execute_script("""var element = arguments[0];element.parentNode.removeChild(element);""", element)
+
     while True:
         try:
+            # Put into sight show more button
+            show_more_button = WebDriverWait(driver, 20).until(EC.visibility_of_element_located((By.CSS_SELECTOR, "table.genTbl.openTbl.ecHistoryTbl tr>th.left.symbol")))
+            driver.execute_script("arguments[0].scrollIntoView(true);",show_more_button)
             WebDriverWait(driver, 20).until(EC.element_to_be_clickable((By.CSS_SELECTOR, "div.showMoreReplies.block>a"))).click()
             WebDriverWait(driver, 20).until(lambda driver: len(driver.find_elements_by_css_selector("table.genTbl.openTbl.ecHistoryTbl tr[id^='historicEvent']")) > myLength)
             table_rows = driver.find_elements_by_css_selector("table.genTbl.openTbl.ecHistoryTbl tr[id^='historicEvent']")
@@ -58,16 +65,22 @@ def download(json_dict, name_dict, to_sql=True):
         line = str(row.text).replace(",", "").replace("(", "").replace(")", "").split()
         if i == init_row:
             prev = line.pop()
-            if len(line)== len(headers)-1:  #Line ok
-                line.extend(prev)
-            if len(line) == len(headers)-2: #Actual missing
-                forecast = line.pop()
-                line.extend(['0.0',forecast,prev]) 
-            elif len(line) == len(headers)-3:   #Actual and Forecast missing
-                line.extend(['0.0','0.0',prev])
-            else:   #Bad structured row by Investing: Delete it
-                init_row = 1
-                pass
+            if name_dict == "IPMICMM":
+                if len(line) == len(headers)-3:   #Actual and Forecast missing
+                    line.extend(['0.0','0.0',prev])
+                else:
+                    line.extend([prev])
+            else:
+                if len(line) == len(headers)-1:  #Line ok
+                    line.extend([prev])
+                elif len(line) == len(headers)-2: #Actual missing
+                    forecast = line.pop()
+                    line.extend(['0.0',forecast,prev]) 
+                elif len(line) == len(headers)-3:   #Actual and Forecast missing
+                    line.extend(['0.0','0.0',prev])
+                else:   #Bad structured row by Investing: Delete it
+                    init_row = 1
+                    pass
             matrix = [line]
         else:
             matrix.append(line)
@@ -78,19 +91,19 @@ def download(json_dict, name_dict, to_sql=True):
     table.to_csv(path)
     driver.quit()
 
-    if "ism" in json_dict['src_link']:    # Special data preparation for PMI
-        PMI_cleaner.ism_execute(name_dict, to_sql)
-    else:
-        pass
-        
+    if "PMI" in json_dict['name']:  # Special data preparation for PMI
+        if "ism" in json_dict['src_link']:
+            pmi_cleaner.ism_execute(name_dict, to_sql)
+        else:
+            pmi_cleaner.markit_execute(name_dict, to_sql)
     return True
 
 if __name__ == "__main__":
     index = {
-		"name": "U.S. ISM Manufacturing Purchasing Managers Index (PMI)",	
+		"name": "U.S. Markit Composite Purchasing Managers Index (PMI)",	
 		"src": "Investing",	
 		"freq": "m",	
 		"forecast": "Y",	
-		"src_link": "https://www.investing.com/economic-calendar/ism-manufacturing-pmi-173"	
+		"src_link": "https://www.investing.com/economic-calendar/markit-composite-pmi-1492"
 	}
-    download(index, "IPMIMISMM", False)
+    download(index, "IPMICMM")
