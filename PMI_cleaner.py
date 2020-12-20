@@ -36,8 +36,6 @@ def ism_execute(name_dict, to_sql=True):
     table[Release_M] = table[Release_M].apply(lambda x: strptime(x, '%b').tm_mon).astype('uint8')
     table[Actual_M] = table[Actual_M][0:init_pos].apply(lambda x: strptime(x, '%b').tm_mon)
 
-    #print(table["Actual_M"][0:init_pos])
-
     # Move all involved cols from specified row
     for i in range(init_pos, len(table[Prev])):
         table.iat[i, -1] = table.iat[i, -2]
@@ -55,7 +53,6 @@ def ism_execute(name_dict, to_sql=True):
             table.at[i, Actual_M] = prev_actual_m
 
     table[Actual_M] = table[Actual_M].astype('uint8')
-    #print(table["Release_M"], table["Actual_M"])
 
     # Actual_Y logic
     table.insert(loc=0, column=Actual_Y, value=table[Release_Y])
@@ -63,7 +60,6 @@ def ism_execute(name_dict, to_sql=True):
         if table.at[i, Actual_M] > table.at[i, Release_M]:
             table.at[i, Actual_Y] = table.at[i, Release_Y] - 1
 
-    #print(table["Release_Y"]-table["Actual_Y"])
 
     # Join Release_Y-Release_M-Release_D
     table.insert(loc=0, column=Release_Date, value='None')
@@ -77,8 +73,7 @@ def ism_execute(name_dict, to_sql=True):
         con = sqlite3.connect("data/db/economic_data.sqlite")
         table.to_sql(name=name_dict, con=con)
     else:
-        print(table)
-        #table.to_csv(path)
+        table.to_csv(path)
 
 def markit_execute(name_dict, to_sql=True):
     path = "data/" + name_dict + ".csv"
@@ -113,21 +108,31 @@ def markit_execute(name_dict, to_sql=True):
         if table.at[i, Actual_M] > table.at[i, Release_M]:
             table.at[i, Actual_Y] = table.at[i, Release_Y] - 1
 
+    # Add 0 before single digit month and day
+    table[Release_M] = table[Release_M].apply(lambda x: f'{str(x):>02}')
+    table[Release_D] = table[Release_D].apply(lambda x: f'{str(x):>02}')
+    table[Actual_M] = table[Actual_M].apply(lambda x: f'{str(x):>02}')
 
     # Join Release_Y-Release_M-Release_D
     table.insert(loc=0, column=Release_Date, value='None')
     table.insert(loc=0, column=Actual_Date, value='None')
-    table[Release_Date] = table[Release_Y].astype(str) + "-" + table[Release_M].astype(str) + "-" + table[Release_D].astype(str)
+    table[Release_Date] = table[Release_Y].astype(str) + "-" + table[Release_M]+ "-" + table[Release_D]
 
-    # Join Actual_Y-Actual_M
-    table[Actual_Date] = table[Actual_Y].astype(str) + "-" + table[Actual_M].astype(str)
+    # Join Actual_Y-Actual_M + first or second fortnight
+    table[Actual_Date] = table[Actual_Y].astype(str) + "-" + table[Actual_M]
+    for i, elem in enumerate(table[Release_Date]):
+        if int(elem[-2:]) > 15:
+            table.at[i, Actual_Date] = table.at[i, Actual_Date] + "-15"
+        else:
+            table.at[i, Actual_Date] = table.at[i, Actual_Date] + "-30"
 
-    print(table)
+    if to_sql == True:
+        con = sqlite3.connect("data/db/economic_data.sqlite")
+        table.to_sql(name=name_dict, con=con)
+    else:
+        table.to_csv(path)
     
 
-
-
-
 if __name__ == "__main__":
-    ism_execute("IPMINMISMM", False)
-    #markit_execute("IPMIMM", False)
+    #ism_execute("IPMICMM", False)
+    markit_execute("IPMICMM", False)
