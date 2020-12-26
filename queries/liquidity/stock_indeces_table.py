@@ -1,10 +1,16 @@
 from datetime import date
 from datetime import timedelta
+from datetime import datetime
 import pandas
 import pandas_datareader as pdr
+import sqlite3
 
 def get_pch(ticker, n_days, source='yahoo'):
     today = date.today()
+    weekday = today.weekday()
+    if weekday > 4:
+        n_days = weekday - 4
+        today = today-timedelta(days=n_days)
     i_today = pdr.DataReader(ticker, data_source=source, start=today, end=today)["Close"][0]
     if n_days == 0:
         return i_today
@@ -30,7 +36,7 @@ def generate(out):
     
     headers_df = table.pop(0)
     df_table = pandas.DataFrame(table, columns=headers_df)
-    df_table.to_sql(name="Indeces_table", con=out)
+    df_table.to_sql(name="Indeces_table", con=out, if_exists='replace')
 
 
 

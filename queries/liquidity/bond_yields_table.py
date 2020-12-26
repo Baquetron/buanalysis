@@ -33,7 +33,7 @@ def generate_bonds_curve(con, out, to_sql=True):
     headers_df = table.pop(0)
     df_table = pandas.DataFrame(table, columns=headers_df)
     if to_sql == True:
-        df_table.to_sql(name="Bond_yield_curve", con=out)
+        df_table.to_sql(name="Bond_yield_curve", con=out, if_exists='replace')
     else:
         print(df_table)
 
@@ -51,7 +51,7 @@ def generate_TIPS_table(con, out, to_sql=True):
     headers_df = table.pop(0)
     df_table = pandas.DataFrame(table, columns=headers_df)
     if to_sql == True:
-        df_table.to_sql(name="Bond_TIPS_curve", con=out)
+        df_table.to_sql(name="Bond_TIPS_curve", con=out, if_exists='replace')
     else:
         print(df_table)
 

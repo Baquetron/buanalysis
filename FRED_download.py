@@ -19,7 +19,7 @@ def download(json_dict, name_dict, to_sql=True):
             "sort_order": "desc",
             "units": json_dict['units']
             }
-
+    retries = 0
     res = fr.series.observations(json_dict['Id'], params=params)
     res = res.drop(['realtime_end', 'realtime_start'], axis=1)
     res.columns = [actual_date, actual]
@@ -31,7 +31,7 @@ def download(json_dict, name_dict, to_sql=True):
 
     if to_sql == True:
         con = sqlite3.connect("data/db/economic_data.sqlite")
-        res.to_sql(name=name_dict, con=con)
+        res.to_sql(name=name_dict, con=con, if_exists='replace')
     else:
         res.to_csv("data/" + name_dict + ".csv")
 
@@ -54,5 +54,5 @@ if __name__ == "__main__":
 		"units": "lin",
 		"Id": "DGS30"
 	}
-        name = "F30YBD"
+        name = "F3MLM"
         download(mydict, name, False)

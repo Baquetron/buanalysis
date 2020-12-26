@@ -1,25 +1,26 @@
 import sqlite3
 import pandas
 
+NUM_ROWS = "13"   # Num of rows to display in plot
 
 def one_line_table(con, a1):
     df = pandas.read_sql_query(
-        "SELECT DATE(Actual_Date_"+ a1 +") AS DATE, Actual_"+ a1 +" FROM "+ a1, con)
+        "SELECT DATE(Actual_Date_"+ a1 +") AS DATE, Actual_"+ a1 +" FROM "+ a1 +" LIMIT "+ NUM_ROWS, con)
     return df
 
 def two_line_table(con, a1, a2):
     df = pandas.read_sql_query(
-        "SELECT DATE(Actual_Date_"+ a1 +") AS DATE, Actual_"+ a1 +", Actual_"+ a2 +" FROM "+ a1 +", "+ a2 +" WHERE Actual_Date_"+ a1 +" = Actual_Date_"+ a2, con)
+        "SELECT DATE(Actual_Date_"+ a1 +") AS DATE, Actual_"+ a1 +", Actual_"+ a2 +" FROM "+ a1 +", "+ a2 +" WHERE Actual_Date_"+ a1 +" = Actual_Date_"+ a2 +" LIMIT "+ NUM_ROWS, con)
     return df
 
 def three_line_table(con, a1, a2, a3):
     df = pandas.read_sql_query(
-        "SELECT DATE(Actual_Date_"+ a1 +") AS DATE, Actual_"+ a1 +", Actual_"+ a2 +", Actual_"+ a3 +" FROM "+ a1 +", "+ a2 +", "+ a3 +" WHERE (Actual_Date_"+ a1 +" = Actual_Date_"+ a2 +" AND Actual_Date_"+ a2 +" = Actual_Date_"+ a3 +")", con)    
+        "SELECT DATE(Actual_Date_"+ a1 +") AS DATE, Actual_"+ a1 +", Actual_"+ a2 +", Actual_"+ a3 +" FROM "+ a1 +", "+ a2 +", "+ a3 +" WHERE (Actual_Date_"+ a1 +" = Actual_Date_"+ a2 +" AND Actual_Date_"+ a2 +" = Actual_Date_"+ a3 +" LIMIT "+ NUM_ROWS +")", con)    
     return df
 
 def four_line_table(con, a1, a2, a3, a4):
     df = pandas.read_sql_query(
-        "SELECT DATE(Actual_Date_"+ a1 +") AS DATE, Actual_"+ a1 +", Actual_"+ a2 +", Actual_"+ a3 +", Actual_"+ a4 +" FROM "+ a1 +", "+ a2 +", "+ a3 +", "+ a4 +" WHERE (Actual_Date_"+ a1 +" = Actual_Date_"+ a2 +" AND Actual_Date_"+ a2 +" = Actual_Date_"+ a3 +" AND Actual_Date_"+ a3 +" = Actual_Date_"+ a4 +")", con) 
+        "SELECT DATE(Actual_Date_"+ a1 +") AS DATE, Actual_"+ a1 +", Actual_"+ a2 +", Actual_"+ a3 +", Actual_"+ a4 +" FROM "+ a1 +", "+ a2 +", "+ a3 +", "+ a4 +" WHERE (Actual_Date_"+ a1 +" = Actual_Date_"+ a2 +" AND Actual_Date_"+ a2 +" = Actual_Date_"+ a3 +" AND Actual_Date_"+ a3 +" = Actual_Date_"+ a4 +" LIMIT "+ NUM_ROWS +")", con) 
     return df
 
 def simple_table_to_plot(con, out, name, a, *args):   #At least one index in inputs
@@ -36,10 +37,10 @@ def simple_table_to_plot(con, out, name, a, *args):   #At least one index in inp
     elif len(ind) == 4:
         df = four_line_table(con, ind[0], ind[1], ind[2], ind[3])  
     else:
-        print "4 indeces max!"
+        print("4 indeces max!")
         return 0
     
-    df.to_sql(name=name, con=out)
+    df.to_sql(name=name, con=out, if_exists='replace')
 
 if __name__ == "__main__":
     con = sqlite3.connect("data/db/economic_data.sqlite")

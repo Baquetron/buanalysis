@@ -37,7 +37,7 @@ def download(json_dict, name_dict):
     
     #crude.to_csv("data/" + name_dict + ".csv")
     con = sqlite3.connect("data/db/economic_data.sqlite")
-    table.to_sql(name=name_dict, con=con)
+    table.to_sql(name=name_dict, con=con, if_exists='replace')
     return True
 
 if __name__ == "__main__":

@@ -41,8 +41,11 @@ def download(json_dict, name_dict, to_sql=True):
     myLength = len(WebDriverWait(driver, 20).until(EC.visibility_of_all_elements_located((By.CSS_SELECTOR, "table.genTbl.openTbl.ecHistoryTbl tr[id^='historicEvent']"))))
 
     #Erase video elem from lower left video corner
-    element = driver.find_element_by_id('video')
-    driver.execute_script("""var element = arguments[0];element.parentNode.removeChild(element);""", element)
+    try:
+        element = driver.find_element_by_id('video')
+        driver.execute_script("""var element = arguments[0];element.parentNode.removeChild(element);""", element)
+    except:
+        pass
 
     while True:
         try:

@@ -65,7 +65,7 @@ class cvo2m_tables:
         self.df_vom2now = self.df_vom2now.sort_values(['DATE'], ascending=False).reset_index(drop=True)
 
         if w_sql == 1:
-            self.df_vom2now.to_sql(name="VoM2now_quarter", con=self.out)
+            self.df_vom2now.to_sql(name="VoM2now_quarter", con=self.out, if_exists='replace')
     
     def vom2_q_table(self):
         self.vom2now_table(0)
@@ -86,7 +86,7 @@ class cvo2m_tables:
         self.df_gdp_vom2_q = pandas.merge(left=self.df_gdpnowq, right=self.df_vom2q, on='Quarter', left_index=True)
         
         if w_sql == 1:
-            self.df_vom2now.to_sql(name="GDP_vs_Vom2_quarterly", con=self.out)
+            self.df_vom2now.to_sql(name="GDP_vs_Vom2_quarterly", con=self.out, if_exists='replace')
 
 if __name__ == "__main__":
     con = sqlite3.connect("data/db/economic_data.sqlite")

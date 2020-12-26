@@ -73,6 +73,8 @@ def download(json_dict, name_dict):
     driver.set_window_position(-2000,0)
     time.sleep(3)
     driver.get(json_dict["src_link"])
+    # Accept cookies
+    WebDriverWait(driver, 20).until(EC.element_to_be_clickable((By.XPATH, "//*[@id='cookieBanner-accept']"))).click()
     if name_dict == "AWXSFRM":
         WebDriverWait(driver, 20).until(EC.element_to_be_clickable((By.XPATH, "//*[@id='main']/div/div[2]/div[5]/div/ul[1]/li[2]/a"))).click()
     elif name_dict == "AGDPNO":
@@ -114,7 +116,7 @@ def shadow_r_reader(filepath, name_dict, freq):
 
     #wuxia_pd.to_csv("data/" + name_dict + ".csv")
     con = sqlite3.connect("data/db/economic_data.sqlite")
-    wuxia_pd.to_sql(name=name_dict, con=con)
+    wuxia_pd.to_sql(name=name_dict, con=con, if_exists='replace')
 
 def gdpnow_reader(filepath, name_dict, freq):
     actual_date = "Actual_Date_" + name_dict
@@ -140,7 +142,7 @@ def gdpnow_reader(filepath, name_dict, freq):
 
     #gdp_pd.to_csv("data/" + name_dict + ".csv")
     con = sqlite3.connect("data/db/economic_data.sqlite")
-    gdp_pd.to_sql(name=name_dict, con=con)
+    gdp_pd.to_sql(name=name_dict, con=con, if_exists='replace')
 
 if __name__ == "__main__":
     mydict = {
@@ -150,7 +152,7 @@ if __name__ == "__main__":
 		"filename": "GDPTrackingModelDataAndForecasts.xlsx",
 		"src_link": "https://www.frbatlanta.org/cqer/research/gdpnow"
 	}
-    namedict = "AWXSFRM"
-    #download(mydict, namedict)
+    namedict = "AGDPNO"
+    download(mydict, namedict)
     #shadow_r_reader("/Users/inigo/Downloads/WuXiaShadowRate.xlsx", namedict, "m")
     #gdpnow_reader("/Users/inigo/Downloads/GDPTrackingModelDataAndForecasts.xlsx", "AGDPNO", "q")
