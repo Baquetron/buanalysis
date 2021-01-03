@@ -12,13 +12,23 @@ def download(json_dict, name_dict, to_sql=True):
     
     fr = Fred(api_key=_API_KEY,response_type='df')
     freq = json_dict['freq']
-    params = {
-            "output_type": 1,
-            "observation_start": _DATE_START,
-            "frequency": freq,
-            "sort_order": "desc",
-            "units": json_dict['units']
-            }
+    try:
+        params = {
+                "output_type": 1,
+                "observation_start": _DATE_START,
+                "frequency": freq,
+                "aggregation_method": json_dict['aggregation_method'],
+                "sort_order": "desc",
+                "units": json_dict['units']
+                }
+    except:
+        params = {
+                "output_type": 1,
+                "observation_start": _DATE_START,
+                "frequency": freq,
+                "sort_order": "desc",
+                "units": json_dict['units']
+                }
     retries = 0
     res = fr.series.observations(json_dict['Id'], params=params)
     res = res.drop(['realtime_end', 'realtime_start'], axis=1)
@@ -33,26 +43,19 @@ def download(json_dict, name_dict, to_sql=True):
         con = sqlite3.connect("data/db/economic_data.sqlite")
         res.to_sql(name=name_dict, con=con, if_exists='replace')
     else:
+        print(res)
         res.to_csv("data/" + name_dict + ".csv")
 
     return True
 
 if __name__ == "__main__":
-        """mydict = {
-		"name": "3-Month London Interbank Offered Rate (LIBOR)",
-		"src": "FRED",
-		"freq": "d",
-		"units": "lin",
-		"Id": "USD3MTD156N"
-	}
-        name = "F3MLD"""
-
         mydict = {
-		"name": "30-Year Treasury Constant Maturity Rate",
+		"name": "M2 Money Stock",
 		"src": "FRED",
-		"freq": "d",
-		"units": "lin",
-		"Id": "DGS30"
+		"freq": "q",
+		"aggregation_method": "eop",
+		"units":"pch",
+		"Id": "M2"
 	}
-        name = "F3MLM"
-        download(mydict, name, False)
+        name = "FM2Q"
+        download(mydict, name, True)

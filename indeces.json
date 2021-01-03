@@ -58,7 +58,8 @@
 		"name": "M2 Money Stock",
 		"src": "FRED",
 		"freq": "q",
-		"units":"chg",
+		"aggregation_method": "eop",
+		"units":"pch",
 		"Id": "M2"
 	},
 	"FM2LW": {
@@ -173,6 +174,13 @@
 		"units": "lin",
 		"Id": "GDP"
 	},
+	"FGDPCHQ": {
+		"name": "GDP",
+		"src": "FRED",
+		"freq": "q",
+		"units": "pch",
+		"Id": "GDP"
+	},
 	"F30YBD": {
 		"name": "30-Year Treasury Constant Maturity Rate",
 		"src": "FRED",
@@ -256,12 +264,5 @@
 		"freq": "d",
 		"units": "lin",
 		"Id": "DFII10"
-	},
-	"F3MLM": {
-		"name": "3-Month London Interbank Offered Rate (LIBOR)",
-		"src": "FRED",
-		"freq": "m",
-		"units": "lin",
-		"Id": "USD3MTD156N"
 	}
 }

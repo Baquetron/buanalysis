@@ -9,8 +9,8 @@ def get_pch(ticker, n_days, source='yahoo'):
     today = date.today()
     weekday = today.weekday()
     if weekday > 4:
-        n_days = weekday - 4
-        today = today-timedelta(days=n_days)
+        diff_day = weekday - 4
+        today = today-timedelta(days=diff_day)
     i_today = pdr.DataReader(ticker, data_source=source, start=today, end=today)["Close"][0]
     if n_days == 0:
         return i_today
@@ -20,7 +20,6 @@ def get_pch(ticker, n_days, source='yahoo'):
         d_n_days = today-timedelta(days=n_days)
 
     i_pch = ((i_today / pdr.DataReader(ticker,data_source=source, start=d_n_days)["Adj Close"][0]) - 1)*100
-
     return i_pch
 
 def generate(out):
@@ -36,7 +35,7 @@ def generate(out):
     
     headers_df = table.pop(0)
     df_table = pandas.DataFrame(table, columns=headers_df)
-    df_table.to_sql(name="Indeces_table", con=out, if_exists='replace')
+    df_table.to_sql(name="Indeces", con=out, if_exists='replace')
 
 
 

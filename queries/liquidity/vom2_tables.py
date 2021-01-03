@@ -25,7 +25,14 @@ class cvo2m_tables:
     def q_identifier_m(self, date):
         dt = datetime.strptime(date, '%Y-%m')
         month = dt.month
-        q = ((month-1)//3)+1
+        if 1 < month <= 4:
+            q = 1
+        elif 4 < month <= 7:
+            q = 2
+        elif 7 < month <= 10:
+            q = 3
+        else:
+            q = 4
         q_date = str(dt.year) + "-" + str(q)
         return q_date
 
@@ -68,16 +75,15 @@ class cvo2m_tables:
             self.df_vom2now.to_sql(name="VoM2now_quarter", con=self.out, if_exists='replace')
     
     def vom2_q_table(self):
-        self.vom2now_table(0)
         vom2_now_q = self.df_vom2now.iloc[0, :]["DATE"][0:7], self.df_vom2now.iloc[0, :]["Actual_VOM2"]
         self.df_vom2q = self.df_vom2.append(pandas.Series(vom2_now_q, index=['DATE','Actual_FVM2']), ignore_index=True).sort_values(axis=0, by=['DATE'], ascending=False).reset_index(drop=True)
         self.df_vom2q['Quarter'] = self.df_vom2q['DATE'].apply(lambda x: self.q_identifier_m(x))
         
     def gdp_q_table(self):
-        self.vom2now_table(0)
         self.df_gdpnowq['Quarter'] = self.df_gdpnowq['DATE'].apply(lambda x: self.q_identifier_m(x))
         
     def gdp_vom2_q_table(self, w_sql=1):
+        self.vom2now_table(0)
         self.vom2_q_table()
         self.gdp_q_table()
         self.df_vom2q.rename(columns={'DATE':'DATE_FVM2'}, inplace=True)
@@ -86,10 +92,10 @@ class cvo2m_tables:
         self.df_gdp_vom2_q = pandas.merge(left=self.df_gdpnowq, right=self.df_vom2q, on='Quarter', left_index=True)
         
         if w_sql == 1:
-            self.df_vom2now.to_sql(name="GDP_vs_Vom2_quarterly", con=self.out, if_exists='replace')
+            self.df_gdp_vom2_q.to_sql(name="GDP_vs_Vom2_quarterly", con=self.out, if_exists='replace')
 
 if __name__ == "__main__":
     con = sqlite3.connect("data/db/economic_data.sqlite")
     out = sqlite3.connect("data/db/dashboard_data.sqlite")
     obj = cvo2m_tables(con, out)
-    obj.gdp_vom2_q_table()
+    obj.gdp_vom2_q_table(1)

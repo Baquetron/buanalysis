@@ -71,7 +71,7 @@ def ism_execute(name_dict, to_sql=True):
 
     if to_sql == True:
         con = sqlite3.connect("data/db/economic_data.sqlite")
-        table.to_sql(name=name_dict, con=con)
+        table.to_sql(name=name_dict, con=con, if_exists='replace')
     else:
         table.to_csv(path)
 

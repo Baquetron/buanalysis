@@ -28,8 +28,8 @@ class cliqdash:
         # pmi markit forecast table
         pmi_markit_forecast_table.generate(self.con, self.out)
         # simple tables
-        simple_table.simple_table_to_plot(self.con, self.out, "M2_supply_biweekly(%)", "FM2W")
-        simple_table.simple_table_to_plot(self.con, self.out, "Liquidity_excess_quarterly(%)", "FGDPQ", "FM2Q")
+        simple_table.simple_table_to_plot(self.con, self.out, "M2_supply_weekly", "FM2W")
+        simple_table.simple_table_to_plot(self.con, self.out, "Liquidity_excess_quarterly(%)", "FGDPCHQ", "FM2Q")
         #simple_table.simple_table_to_plot(self.con, self.out, "LIBOR_vs_Effective_Fed_rates_monthly", "F3MLM", "FEFFRM")
         simple_table.simple_table_to_plot(self.con, self.out, "FED_total_assets", "FFRTAW")
         simple_table.simple_table_to_plot(self.con, self.out, "Excess_Reserves_of_Depository_Institutions", "FERDIM")

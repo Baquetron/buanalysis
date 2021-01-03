@@ -1,14 +1,14 @@
 import sqlite3
 import pandas
 
-conn = sqlite3.connect("data/db/economic_data.sqlite")
-#conn = sqlite3.connect("data/db/dashboard_data.sqlite")
+#conn = sqlite3.connect("data/db/economic_data.sqlite")
+conn = sqlite3.connect("data/db/dashboard_data.sqlite")
 
 #Creating a cursor object using the cursor() method
 cursor = conn.cursor()
 
 #Doping EMPLOYEE table if already exists
-table_name = "IPMICMM"
+table_name = "GdpNow_vs_VoM2_Current Quarter"
 cursor.execute("DROP TABLE " + table_name)
 print("Table dropped... ")
 
