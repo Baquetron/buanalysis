@@ -23,6 +23,41 @@
 		"freq": "m",
 		"Id": "PET.MCRFPUS1.M"
 	},
+	"IPMICMM": {	
+		"name": "U.S. Markit Composite Purchasing Managers Index (PMI)",	
+		"src": "Investing",	
+		"freq": "m",	
+		"forecast": "Y",	
+		"src_link": "https://www.investing.com/economic-calendar/markit-composite-pmi-1492"	
+	},
+	"IPMIMM": {	
+		"name": "U.S. Manufacturing Purchasing Managers Index (PMI)",	
+		"src": "Investing",	
+		"freq": "m",	
+		"forecast": "Y",	
+		"src_link": "https://www.investing.com/economic-calendar/manufacturing-pmi-829"	
+	},
+	"IPMISM": {	
+		"name": "U.S. Services Purchasing Managers Index (PMI)",	
+		"src": "Investing",	
+		"freq": "m",	
+		"forecast": "Y",	
+		"src_link": "https://www.investing.com/economic-calendar/services-pmi-1062"	
+	},
+	"IPMIMISMM": {	
+		"name": "U.S. ISM Manufacturing Purchasing Managers Index (PMI)",	
+		"src": "Investing",	
+		"freq": "m",	
+		"forecast": "Y",	
+		"src_link": "https://www.investing.com/economic-calendar/ism-manufacturing-pmi-173"	
+	},
+	"IPMINMISMM": {	
+		"name": "U.S. ISM Non-Manufacturing Purchasing Managers Index (PMI)",	
+		"src": "Investing",	
+		"freq": "m",	
+		"forecast": "Y",	
+		"src_link": "https://www.investing.com/economic-calendar/ism-non-manufacturing-pmi-176"	
+	},
 	"AWXSFRM": {
 		"name": "Wu-Xia Shadow Federal Funds Rate",
 		"src": "FRBAtlanta",
@@ -35,6 +70,14 @@
 		"src": "FRED",
 		"freq": "wem",
 		"units":"chg",
+		"Id": "M2"
+	},
+	"FM2Q": {
+		"name": "M2 Money Stock",
+		"src": "FRED",
+		"freq": "q",
+		"aggregation_method": "eop",
+		"units":"pch",
 		"Id": "M2"
 	},
 	"FM2LW": {
@@ -79,19 +122,19 @@
 		"units": "lin",
 		"Id": "DFEDTARL"
 	},
-	"FVM2": {
-		"name": "Velocity of M2 Money Stock",
-		"src": "FRED",
-		"freq": "q",
-		"units": "lin",
-		"Id": "M2V"
-	},
 	"FGDPNQ": {
 		"name": "GDPNow",
 		"src": "FRED",
 		"freq": "q",
 		"units": "lin",
 		"Id": "GDPNOW"
+	},
+	"FVM2": {
+		"name": "Velocity of M2 Money Stock",
+		"src": "FRED",
+		"freq": "q",
+		"units": "lin",
+		"Id": "M2V"
 	},
 	"FOVRAD": {
 		"name": "Overnight Repurchase Agreements: Treasury Securities Purchased by the Federal Reserve in the Temporary Open Market Operations",
@@ -148,5 +191,96 @@
 		"freq": "q",
 		"units": "lin",
 		"Id": "GDP"
+	},
+	"FGDPCHQ": {
+		"name": "GDP",
+		"src": "FRED",
+		"freq": "q",
+		"units": "pch",
+		"Id": "GDP"
+	},
+	"F30YBD": {
+		"name": "30-Year Treasury Constant Maturity Rate",
+		"src": "FRED",
+		"freq": "d",
+		"units": "lin",
+		"Id": "DGS30"
+	},
+	"F20YBD": {
+		"name": "20-Year Treasury Constant Maturity Rate",
+		"src": "FRED",
+		"freq": "d",
+		"units": "lin",
+		"Id": "DGS20"
+	},
+	"F10YBD": {
+		"name": "10-Year Treasury Constant Maturity Rate",
+		"src": "FRED",
+		"freq": "d",
+		"units": "lin",
+		"Id": "DGS10"
+	},
+	"F5YBD": {
+		"name": "5-Year Treasury Constant Maturity Rate",
+		"src": "FRED",
+		"freq": "d",
+		"units": "lin",
+		"Id": "DGS5"
+	},
+	"F2YBD": {
+		"name": "2-Year Treasury Constant Maturity Rate",
+		"src": "FRED",
+		"freq": "d",
+		"units": "lin",
+		"Id": "DGS2"
+	},
+	"F1YBD": {
+		"name": "1-Year Treasury Constant Maturity Rate",
+		"src": "FRED",
+		"freq": "d",
+		"units": "lin",
+		"Id": "DGS1"
+	},
+	"F6MBD": {
+		"name": "6-Month Treasury Constant Maturity Rate",
+		"src": "FRED",
+		"freq": "d",
+		"units": "lin",
+		"Id": "DGS6MO"
+	},
+	"F3MBD": {
+		"name": "3-Month Treasury Constant Maturity Rate",
+		"src": "FRED",
+		"freq": "d",
+		"units": "lin",
+		"Id": "DGS3MO"
+	},
+	"F1MBD": {
+		"name": "1-Month Treasury Constant Maturity Rate",
+		"src": "FRED",
+		"freq": "d",
+		"units": "lin",
+		"Id": "DGS1MO"
+	},
+	"F30YIBD": {
+		"name": "30-Year Treasury Inflation-Indexed Security, Constant Maturity",
+		"src": "FRED",
+		"freq": "d",
+		"units": "lin",
+		"Id": "DFII30"
+	},
+	"F20YIBD": {
+		"name": "20-Year Treasury Inflation-Indexed Security, Constant Maturity",
+		"src": "FRED",
+		"freq": "d",
+		"units": "lin",
+		"Id": "DFII20"
+	},
+	"F10YIBD": {
+		"name": "10-Year Treasury Inflation-Indexed Security, Constant Maturity",
+		"src": "FRED",
+		"freq": "d",
+		"units": "lin",
+		"Id": "DFII10"
 	}
 }

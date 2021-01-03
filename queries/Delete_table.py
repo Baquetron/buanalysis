@@ -8,7 +8,7 @@ conn = sqlite3.connect("data/db/dashboard_data.sqlite")
 cursor = conn.cursor()
 
 #Doping EMPLOYEE table if already exists
-table_name = "GDPNOW_current_quarter"
+table_name = "GdpNow_vs_VoM2_Current Quarter"
 cursor.execute("DROP TABLE " + table_name)
 print("Table dropped... ")
 
