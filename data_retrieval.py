@@ -15,6 +15,7 @@ import FRED_download as FRED
 import Investing_download as Investing
 import EIA_download as EIA
 import FRBA_download as FRBA
+import fedgov_download as fedgov
 
 _JSON_FILE = "indeces.json" #relative path
 _API_KEY = 'd03138bb083102e1cfb0f3fe96737854'
@@ -36,16 +37,15 @@ def main():
         print(name)
         if name[0] == "F":  # FRED source
             result = FRED.download(ind_dict[name], name)
-            print(result)
         elif name[0] == "I":    # Investing source
             result = Investing.download(ind_dict[name], name)
-            print(result)
         elif name[0] == "E":    #EIA source
             result = EIA.download(ind_dict[name], name)
-            print(result)
         elif name[0] == "A":    # FRB Atlanta
             result = FRBA.download(ind_dict[name], name)
-            print(result)
+        elif name[0] == "G":    # Fedgov source
+            result = fedgov.download(ind_dict[name], name)
+        print(result)
         time.sleep(1)
 
 if __name__ == "__main__":

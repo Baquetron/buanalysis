@@ -43,19 +43,18 @@ def download(json_dict, name_dict, to_sql=True):
         con = sqlite3.connect("data/db/economic_data.sqlite")
         res.to_sql(name=name_dict, con=con, if_exists='replace')
     else:
-        print(res)
         res.to_csv("data/" + name_dict + ".csv")
 
     return True
 
 if __name__ == "__main__":
         mydict = {
-		"name": "M2 Money Stock",
+		"name": "Consumer Loans, All Commercial Banks",
 		"src": "FRED",
 		"freq": "q",
 		"aggregation_method": "eop",
-		"units":"pch",
-		"Id": "M2"
+		"units": "pch",
+		"Id": "CLSACBW027SBOG"
 	}
-        name = "FM2Q"
+        name = "FCLACBPCHQ"
         download(mydict, name, True)

@@ -64,6 +64,24 @@
 		"freq": "m",
 		"filename": "WuXiaShadowRate.xlsx",
 		"src_link": "https://www.frbatlanta.org/cqer/research/wu-xia-shadow-federal-funds-rate"
+	},
+	"GREDRQ": {
+		"name": "U.S. RE Delinquency rates",	
+        "src": "Fedgov",	
+        "freq": "q",
+        "src_link": "https://www.federalreserve.gov/releases/chargeoff/delallsa.htm"
+	},
+	"GCIDRQ": {
+		"name": "U.S. CI Delinquency rates",	
+        "src": "Fedgov",	
+        "freq": "q",
+        "src_link": "https://www.federalreserve.gov/releases/chargeoff/delallsa.htm"
+	},
+	"GCLDRQ": {
+		"name": "U.S. CL Delinquency rates",	
+        "src": "Fedgov",	
+        "freq": "q",
+        "src_link": "https://www.federalreserve.gov/releases/chargeoff/delallsa.htm"
 	},	
 	"FM2W": {
 		"name": "M2 Money Stock",
@@ -147,15 +165,22 @@
 		"name": "Excess Reserves of Depository Institutions",
 		"src": "FRED",
 		"freq": "m",
-		"units": "chg",
+		"units": "lin",
 		"Id": "EXCSRESNS"
 	},
-	"FRBRW": {
+	"FTRDIM": {
+		"name": "Total Reserves of Depository Institutions",
+		"src": "FRED",
+		"freq": "m",
+		"units": "lin",
+		"Id": "TOTRESNS"
+	},
+	"FRBRM": {
 		"name": "Reserve Balances Required; Reserve Balance Requirements (DISCONTINUED)",
 		"src": "FRED",
-		"freq": "wew",
+		"freq": "m",
 		"units": "lin",
-		"Id": "RESBALREQW"
+		"Id": "RESBALREQ"
 	},
 	"FFRTAW": {
 		"name": "Federal Reserve Total Assets",
@@ -163,13 +188,6 @@
 		"freq": "w",
 		"units": "lin",
 		"Id": "WALCL"
-	},
-	"FCAILW": {
-		"name": "Commercial and Industrial Loans, All Commercial Banks",
-		"src": "FRED",
-		"freq": "wew",
-		"units": "chg",
-		"Id": "TOTCI"
 	},
 	"FLESSW": {
 		"name": "LESS: Allowance for Loan and Lease Losses, All Commercial Banks",
@@ -282,5 +300,102 @@
 		"freq": "d",
 		"units": "lin",
 		"Id": "DFII10"
+	},
+	"FORATPD": {
+		"name": "Overnight Repurchase Agreements: Treasury Securities Purchased",
+		"src": "FRED",
+		"freq": "d",
+		"units": "lin",
+		"Id": "RPONTSYD"
+	},
+	"FCILACBW": {
+		"name": "Commercial and Industrial Loans, All Commercial Banks",
+		"src": "FRED",
+		"freq": "wew",
+		"units": "lin",
+		"Id": "TOTCI"
+	},
+	"FCILACBPCHM": {
+		"name": "Commercial and Industrial Loans, All Commercial Banks",
+		"src": "FRED",
+		"freq": "m",
+		"aggregation_method": "eop",
+		"units": "pch",
+		"Id": "TOTCI"
+	},
+	"FCILACBPCHQ": {
+		"name": "Commercial and Industrial Loans, All Commercial Banks",
+		"src": "FRED",
+		"freq": "q",
+		"aggregation_method": "eop",
+		"units": "pch",
+		"Id": "TOTCI"
+	},
+	"FRELACBW": {
+		"name": "Real Estate Loans, All Commercial Banks",
+		"src": "FRED",
+		"freq": "wew",
+		"units": "lin",
+		"Id": "RELACBW027SBOG"
+	},
+	"FRELACBPCHM": {
+		"name": "Real Estate Loans, All Commercial Banks",
+		"src": "FRED",
+		"freq": "m",
+		"aggregation_method": "eop",
+		"units": "pch",
+		"Id": "RELACBW027SBOG"
+	},
+	"FRELACBPCHQ": {
+		"name": "Real Estate Loans, All Commercial Banks",
+		"src": "FRED",
+		"freq": "q",
+		"aggregation_method": "eop",
+		"units": "pch",
+		"Id": "RELACBW027SBOG"
+	},
+	"FCLACBW": {
+		"name": "Consumer Loans, All Commercial Banks",
+		"src": "FRED",
+		"freq": "wew",
+		"units": "lin",
+		"Id": "CLSACBW027SBOG"
+	},
+	"FCLACBPCHM": {
+		"name": "Consumer Loans, All Commercial Banks",
+		"src": "FRED",
+		"freq": "m",
+		"aggregation_method": "eop",
+		"units": "pch",
+		"Id": "CLSACBW027SBOG"
+	},
+	"FCLACBPCHQ": {
+		"name": "Consumer Loans, All Commercial Banks",
+		"src": "FRED",
+		"freq": "q",
+		"aggregation_method": "eop",
+		"units": "pch",
+		"Id": "CLSACBW027SBOG"
+	},
+	"FCAACBW": {
+		"name": "Cash Assets, All Commercial Banks",
+		"src": "FRED",
+		"freq": "wew",
+		"units": "lin",
+		"Id": "CASACBW027SBOG"
+	},
+	"FTAACBW": {
+		"name": "Total Assets, All Commercial Banks",
+		"src": "FRED",
+		"freq": "wew",
+		"units": "lin",
+		"Id": "TLAACBW027SBOG"
+	},
+	"FTLACBW": {
+		"name": "Total Liabilities, All Commercial Banks",
+		"src": "FRED",
+		"freq": "wew",
+		"units": "lin",
+		"Id": "TLBACBW027NBOG"
 	}
 }
