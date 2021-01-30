@@ -391,11 +391,144 @@
 		"units": "lin",
 		"Id": "TLAACBW027SBOG"
 	},
-	"FTLACBW": {
-		"name": "Total Liabilities, All Commercial Banks",
+	"FURAM": {
+		"name": "Unemployment Rate - Agricultural",
 		"src": "FRED",
-		"freq": "wew",
+		"freq": "m",
 		"units": "lin",
-		"Id": "TLBACBW027NBOG"
+		"Id": "LNU04035109"
+	},
+	"FURAIGM": {
+		"name": "Unemployment Rate All Industries Government",
+		"src": "FRED",
+		"freq": "m",
+		"units": "lin",
+		"Id": "LNU04028615"
+	},
+	"FURAISEUUFM": {
+		"name": "Unemployment Rate - All Industries, Self-Employed, Unincorporated, and Unpaid Family Workers",
+		"src": "FRED",
+		"freq": "m",
+		"units": "lin",
+		"Id": "LNU04035181"
+	},
+	"FURNAM": {
+		"name": "Unemployment Rate - Nonagriculture, Private Wage and Salary Workers",
+		"src": "FRED",
+		"freq": "m",
+		"units": "lin",
+		"Id": "LNU04032229"
+	},
+	"FURMQOM": {
+		"name": "Unemployment Rate - Mining, Quarrying, and Oil and Gas Extraction",
+		"src": "FRED",
+		"freq": "m",
+		"units": "lin",
+		"Id": "LNU04032230"
+	},
+	"FURCM": {
+		"name": "Unemployment Rate - Construction Industry",
+		"src": "FRED",
+		"freq": "m",
+		"units": "lin",
+		"Id": "LNU04032231"
+	},
+	"FURDGM": {
+		"name": "Unemployment Rate - Durable Goods Industry, Private Wage and Salary Workers",
+		"src": "FRED",
+		"freq": "m",
+		"units": "lin",
+		"Id": "LNU04032233"
+	},
+	"FURNDGM": {
+		"name": "Unemployment Rate - Non Durable Goods Industry",
+		"src": "FRED",
+		"freq": "m",
+		"units": "lin",
+		"Id": "LNU04032234"
+	},
+	"FURMWRM": {
+		"name": "Unemployment Rate - Wholesale and Retail Trade",
+		"src": "FRED",
+		"freq": "m",
+		"units": "lin",
+		"Id": "LNU04032235"
+	},
+	"FURTUM": {
+		"name": "Unemployment Rate - Transportation and Utilities Industry",
+		"src": "FRED",
+		"freq": "m",
+		"units": "lin",
+		"Id": "LNU04032236"
+	},
+	"FURIM": {
+		"name": "Unemployment Rate - Information Industry",
+		"src": "FRED",
+		"freq": "m",
+		"units": "lin",
+		"Id": "LNU04032237"
+	},
+	"FURFAM": {
+		"name": "Unemployment Rate - Financial Activities Industry",
+		"src": "FRED",
+		"freq": "m",
+		"units": "lin",
+		"Id": "LNU04032238"
+	},
+	"FURPBSM": {
+		"name": "Unemployment Rate - Professional and Business Services Industry",
+		"src": "FRED",
+		"freq": "m",
+		"units": "lin",
+		"Id": "LNU04032239"
+	},
+	"FUREHM": {
+		"name": "Unemployment Rate - Education and Health Services",
+		"src": "FRED",
+		"freq": "m",
+		"units": "lin",
+		"Id": "LNU04032240"
+	},
+	"FURLHM": {
+		"name": "Unemployment Rate - Leisure and Hospitality",
+		"src": "FRED",
+		"freq": "m",
+		"units": "lin",
+		"Id": "LNU04032241"
+	},
+	"FICW": {
+		"name": "Initial Claims",
+		"src": "FRED",
+		"freq": "wes",
+		"units": "lin",
+		"Id": "ICSA"
+	},
+	"FJOTNW": {
+		"name": "Job Openings: Total Nonfarm",
+		"src": "FRED",
+		"freq": "m",
+		"units": "lin",
+		"Id": "JTSJOL"
+	},
+	"FTNFPM": {
+		"name": "All Employees, Total Nonfarm payrolls",
+		"src": "FRED",
+		"freq": "m",
+		"units": "lin",
+		"Id": "PAYEMS"
+	},
+	"FTNPPM": {
+		"name": "Total Nonfarm Private Payroll Employment",
+		"src": "FRED",
+		"freq": "m",
+		"units": "lin",
+		"Id": "NPPTTL"
+	},
+	"FAHEM": {
+		"name": "Average Hourly Earnings of All Employees",
+		"src": "FRED",
+		"freq": "m",
+		"units": "lin",
+		"Id": "CES0500000003"
 	}
 }

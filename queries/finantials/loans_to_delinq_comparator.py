@@ -18,6 +18,7 @@ def q_identifier_m(date):
         q_date = str(dt.year) + "-" + str(q)
         return q_date
 
+
 def one_line_table(con, a1):
     df = pandas.read_sql_query(
         "SELECT Actual_Date_"+ a1 +" AS DATE, Actual_"+ a1 +" FROM "+ a1 +" LIMIT "+ NUM_ROWS, con)
@@ -29,8 +30,8 @@ def generate(con, out, name, a1, a2):
     df_del = one_line_table(con, a2)
 
     df = pandas.merge(left=df_loan, right=df_del, on="DATE")
+    df["DATE"] = df["DATE"].apply(lambda x: x.replace("-", "-0"))
     df.to_sql(con=out, name=name, if_exists='replace')
-
 
 
 if __name__ == "__main__":
