@@ -58,6 +58,34 @@
 		"forecast": "Y",	
 		"src_link": "https://www.investing.com/economic-calendar/ism-non-manufacturing-pmi-176"	
 	},
+	"INOISMM": {	
+		"name": "U.S. ISM Manufacturing New Orders Index",	
+		"src": "Investing",	
+		"freq": "m",	
+		"forecast": "Y",	
+		"src_link": "https://www.investing.com/economic-calendar/ism-manufacturing-new-orders-index-1483"	
+	},
+	"IMPISMM": {	
+		"name": "U.S. ISM Manufacturing Prices",	
+		"src": "Investing",	
+		"freq": "m",	
+		"forecast": "Y",	
+		"src_link": "https://www.investing.com/economic-calendar/ism-manufacturing-prices-174"
+	},
+	"INMPISMM": {	
+		"name": "U.S. ISM Non-Manufacturing Prices",	
+		"src": "Investing",	
+		"freq": "m",	
+		"forecast": "Y",	
+		"src_link": "https://www.investing.com/economic-calendar/ism-non-manufacturing-prices-1049"	
+	},
+	"IM5YIM": {	
+		"name": "U.S. Michigan 5-Year Inflation Expectations",	
+		"src": "Investing",	
+		"freq": "m",	
+		"forecast": "N",	
+		"src_link": "https://www.investing.com/economic-calendar/michigan-5-year-inflation-expectations-1568"	
+	},
 	"AWXSFRM": {
 		"name": "Wu-Xia Shadow Federal Funds Rate",
 		"src": "FRBAtlanta",
@@ -189,11 +217,25 @@
 		"units": "lin",
 		"Id": "WALCL"
 	},
+	"FFRTACHW": {
+		"name": "Federal Reserve Total Assets",
+		"src": "FRED",
+		"freq": "w",
+		"units": "chg",
+		"Id": "WALCL"
+	},
 	"FLESSW": {
 		"name": "LESS: Allowance for Loan and Lease Losses, All Commercial Banks",
 		"src": "FRED",
 		"freq": "wew",
 		"units": "lin",
+		"Id": "ALLACBW027SBOG"
+	},
+	"FLESSCHW": {
+		"name": "LESS: Allowance for Loan and Lease Losses, All Commercial Banks",
+		"src": "FRED",
+		"freq": "wew",
+		"units": "chg",
 		"Id": "ALLACBW027SBOG"
 	},
 	"AGDPNO": {
@@ -499,7 +541,7 @@
 	"FICW": {
 		"name": "Initial Claims",
 		"src": "FRED",
-		"freq": "wes",
+		"freq": "wesa",
 		"units": "lin",
 		"Id": "ICSA"
 	},
@@ -530,5 +572,109 @@
 		"freq": "m",
 		"units": "lin",
 		"Id": "CES0500000003"
+	},
+	"F10YBIW": {
+		"name": "10-Year Breakeven Inflation Rate",
+		"src": "FRED",
+		"freq": "wef",
+		"aggregation_method": "eop",
+		"units": "lin",
+		"Id": "T10YIE"
+	},
+	"F10YBICHW": {
+		"name": "10-Year Breakeven Inflation Rate",
+		"src": "FRED",
+		"freq": "wef",
+		"aggregation_method": "eop",
+		"units": "pch",
+		"Id": "T10YIE"
+	},
+	"F5YFIEW": {
+		"name": "5-Year, 5-Year Forward Inflation Expectation Rate",
+		"src": "FRED",
+		"freq": "wef",
+		"aggregation_method": "eop",
+		"units": "lin",
+		"Id": "T5YIFR"
+	},
+	"F5YFIECHW": {
+		"name": "5-Year, 5-Year Forward Inflation Expectation Rate",
+		"src": "FRED",
+		"freq": "wef",
+		"aggregation_method": "eop",
+		"units": "pch",
+		"Id": "T5YIFR"
+	},
+	"F2YBW": {
+		"name": "2-Year Treasury Constant Maturity Rate",
+		"src": "FRED",
+		"freq": "wef",
+		"aggregation_method": "eop",
+		"units": "lin",
+		"Id": "DGS2"
+	},
+	"F10YBW": {
+		"name": "10-Year Treasury Constant Maturity Rate",
+		"src": "FRED",
+		"freq": "wef",
+		"aggregation_method": "eop",
+		"units": "lin",
+		"Id": "DGS10"
+	},
+	"FCPIM": {
+		"name": "Consumer Price Index for All Urban Consumers: All Items in U.S. City Average",
+		"src": "FRED",
+		"freq": "m",
+		"units": "lin",
+		"Id": "CPIAUCSL"
+	},
+	"FCPICHM": {
+		"name": "Consumer Price Index for All Urban Consumers: All Items in U.S. City Average",
+		"src": "FRED",
+		"freq": "m",
+		"units": "pch",
+		"Id": "CPIAUCSL"
+	},
+	"FPCEM": {
+		"name": "Personal Consumption Expenditures Excluding Food and Energy (Chain-Type Price Index)",
+		"src": "FRED",
+		"freq": "m",
+		"units": "lin",
+		"Id": "PCEPILFE"
+	},
+	"FPCECHM": {
+		"name": "Personal Consumption Expenditures Excluding Food and Energy (Chain-Type Price Index)",
+		"src": "FRED",
+		"freq": "m",
+		"units": "pch",
+		"Id": "PCEPILFE"
+	},
+	"FPPIM": {
+		"name": "Producer Price Index by Commodity: Final Demand",
+		"src": "FRED",
+		"freq": "m",
+		"units": "lin",
+		"Id": "PPIFIS"
+	},
+	"FPPICHM": {
+		"name": "Producer Price Index by Commodity: Final Demand",
+		"src": "FRED",
+		"freq": "m",
+		"units": "pch",
+		"Id": "PPIFIS"
+	},
+	"FPPIACM": {
+		"name": "Producer Price Index by Commodity: All Commodities",
+		"src": "FRED",
+		"freq": "m",
+		"units": "lin",
+		"Id": "PPIACO"
+	},
+	"FPPIACCHM": {
+		"name": "Producer Price Index by Commodity: All Commodities",
+		"src": "FRED",
+		"freq": "m",
+		"units": "pch",
+		"Id": "PPIACO"
 	}
 }

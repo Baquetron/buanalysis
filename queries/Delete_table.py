@@ -8,7 +8,7 @@ conn = sqlite3.connect("data/db/economic_data.sqlite")
 cursor = conn.cursor()
 
 #Doping EMPLOYEE table if already exists
-table_name = "FGCLDRQ"
+table_name = "FPPICHM"
 cursor.execute("DROP TABLE " + table_name)
 print("Table dropped... ")
 

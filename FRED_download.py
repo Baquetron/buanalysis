@@ -49,12 +49,11 @@ def download(json_dict, name_dict, to_sql=True):
 
 if __name__ == "__main__":
         mydict = {
-		"name": "Consumer Loans, All Commercial Banks",
+		"name": "LESS: Allowance for Loan and Lease Losses, All Commercial Banks",
 		"src": "FRED",
-		"freq": "q",
-		"aggregation_method": "eop",
-		"units": "pch",
-		"Id": "CLSACBW027SBOG"
+		"freq": "wew",
+		"units": "chg",
+		"Id": "ALLACBW027SBOG"
 	}
-        name = "FCLACBPCHQ"
+        name = "FLESSCHW"
         download(mydict, name, True)

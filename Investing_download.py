@@ -10,7 +10,7 @@ import time
 import re
 import calendar
 from time import strptime
-import pmi_cleaner
+import investing_cleaner
 
 def download(json_dict, name_dict, to_sql=True):
     headers = ["Release_M_", "Release_D_", "Release_Y_", "Actual_M_", "Release_H_", "Actual_", "Forecast_", "Prev_"]
@@ -96,17 +96,21 @@ def download(json_dict, name_dict, to_sql=True):
 
     if "PMI" in json_dict['name']:  # Special data preparation for PMI
         if "ism" in json_dict['src_link']:
-            pmi_cleaner.ism_execute(name_dict, to_sql)
+            investing_cleaner.ism_execute(name_dict, to_sql)
         else:
-            pmi_cleaner.markit_execute(name_dict, to_sql)
+            investing_cleaner.markit_execute(name_dict, to_sql)
+    elif "ism" in json_dict['src_link']:
+        investing_cleaner.ism_execute(name_dict, to_sql)
+    elif "Michigan" in json_dict['name']:
+        investing_cleaner.michigan_inflation_execute(name_dict, to_sql)
     return True
 
 if __name__ == "__main__":
     index = {
-		"name": "U.S. Markit Composite Purchasing Managers Index (PMI)",	
+		"name": "U.S. ISM Non-Manufacturing Prices",	
 		"src": "Investing",	
 		"freq": "m",	
 		"forecast": "Y",	
-		"src_link": "https://www.investing.com/economic-calendar/markit-composite-pmi-1492"
+		"src_link": "https://www.investing.com/economic-calendar/ism-non-manufacturing-prices-1049"	
 	}
-    download(index, "IPMICMM")
+    download(index, "INMPISMM")

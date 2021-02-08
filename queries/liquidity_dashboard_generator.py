@@ -28,12 +28,12 @@ class cliqdash:
         # pmi markit forecast table
         pmi_markit_forecast_table.generate(self.con, self.out)
         # simple tables
-        simple_table.simple_table_to_plot(self.con, self.out, "M2_supply_weekly", "FM2W")
-        simple_table.simple_table_to_plot(self.con, self.out, "Liquidity_excess_quarterly(%)", "FGDPCHQ", "FM2Q")
+        simple_table.simple_table_to_plot(self.con, self.out, 13, "M2_supply_weekly", "FM2W")
+        simple_table.simple_table_to_plot(self.con, self.out, 13, "Liquidity_excess_quarterly(%)", "FGDPCHQ", "FM2Q")
         #simple_table.simple_table_to_plot(self.con, self.out, "LIBOR_vs_Effective_Fed_rates_monthly", "F3MLM", "FEFFRM")
-        simple_table.simple_table_to_plot(self.con, self.out, "FED_total_assets", "FFRTAW")
-        simple_table.simple_table_to_plot(self.con, self.out, "Excess_Reserves_of_Depository_Institutions", "FERDIM")
-        simple_table.simple_table_to_plot(self.con, self.out, "LESS_weekly", "FLESSW")
+        simple_table.simple_table_to_plot(self.con, self.out, 26, "FED_total_assets", "FFRTAW", "FFRTACHW")
+        simple_table.simple_table_to_plot(self.con, self.out, 26, "Excess_Reserves_of_Depository_Institutions", "FERDIM")
+        simple_table.simple_table_to_plot(self.con, self.out, 26, "LESS_weekly", "FLESSW", "FLESSCHW")
 
 if __name__ == "__main__":
     con = sqlite3.connect("data/db/economic_data.sqlite")

@@ -17,7 +17,6 @@ class cliqdash:
         simple_table.simple_table_to_plot(self.con, self.out, 26, "LESS_weekly", "FLESSW")
         simple_table.simple_table_to_plot(self.con, self.out, 26, "Loans,_all_commercial_banks", "FCILACBW", "FRELACBW", "FCLACBW")
         simple_table.simple_table_to_plot(self.con, self.out, 26, "Total_assets_vs_liabilities_vs_cash,_all_commercial_banks", "FCAACBW", "FTAACBW", "FTLACBW")
-        #simple_table.simple_table_to_plot(self.con, self.out, 13, "Delinquency_rates_on_loans", "GCIDRQ", "GREDRQ", "GCLDRQ")
         loans_comparator.generate(self.con, self.out, "CI_loans_by_year", "FCILACBPCHM")
         loans_comparator.generate(self.con, self.out, "RE_loans_by_year", "FRELACBPCHM")
         loans_comparator.generate(self.con, self.out, "CL_loans_by_year", "FCLACBPCHM")
