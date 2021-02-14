@@ -50,8 +50,8 @@ def download(json_dict, name_dict, to_sql=True):
     while True:
         try:
             # Put into sight show more button
-            show_more_button = WebDriverWait(driver, 20).until(EC.visibility_of_element_located((By.CSS_SELECTOR, "table.genTbl.openTbl.ecHistoryTbl tr>th.left.symbol")))
-            driver.execute_script("arguments[0].scrollIntoView(true);",show_more_button)
+            #show_more_button = WebDriverWait(driver, 20).until(EC.visibility_of_element_located((By.CSS_SELECTOR, "table.genTbl.openTbl.ecHistoryTbl tr>th.left.symbol")))
+            #driver.execute_script("arguments[0].scrollIntoView(true);",show_more_button)
             WebDriverWait(driver, 20).until(EC.element_to_be_clickable((By.CSS_SELECTOR, "div.showMoreReplies.block>a"))).click()
             WebDriverWait(driver, 20).until(lambda driver: len(driver.find_elements_by_css_selector("table.genTbl.openTbl.ecHistoryTbl tr[id^='historicEvent']")) > myLength)
             table_rows = driver.find_elements_by_css_selector("table.genTbl.openTbl.ecHistoryTbl tr[id^='historicEvent']")
@@ -102,15 +102,18 @@ def download(json_dict, name_dict, to_sql=True):
     elif "ism" in json_dict['src_link']:
         investing_cleaner.ism_execute(name_dict, to_sql)
     elif "Michigan" in json_dict['name']:
-        investing_cleaner.michigan_inflation_execute(name_dict, to_sql)
+        if "IM5YIM" == name_dict:
+            investing_cleaner.michigan_inflation_execute(name_dict, to_sql)
+        else:
+            investing_cleaner.ism_execute(name_dict, to_sql)
     return True
 
 if __name__ == "__main__":
     index = {
-		"name": "U.S. ISM Non-Manufacturing Prices",	
+		"name": "U.S. Michigan Current Conditions",	
 		"src": "Investing",	
 		"freq": "m",	
-		"forecast": "Y",	
-		"src_link": "https://www.investing.com/economic-calendar/ism-non-manufacturing-prices-1049"	
+		"forecast": "N",	
+		"src_link": "https://www.investing.com/economic-calendar/michigan-current-conditions-901"
 	}
-    download(index, "INMPISMM")
+    download(index, "IMCCM")

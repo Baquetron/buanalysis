@@ -86,6 +86,27 @@
 		"forecast": "N",	
 		"src_link": "https://www.investing.com/economic-calendar/michigan-5-year-inflation-expectations-1568"	
 	},
+	"IMCSM": {	
+		"name": "U.S. Michigan Consumer Sentiment",	
+		"src": "Investing",	
+		"freq": "m",	
+		"forecast": "Y",	
+		"src_link": "https://www.investing.com/economic-calendar/michigan-consumer-sentiment-320"	
+	},
+	"IMCEM": {	
+		"name": "U.S. Michigan Consumer Expectations",	
+		"src": "Investing",	
+		"freq": "m",	
+		"forecast": "N",	
+		"src_link": "https://www.investing.com/economic-calendar/michigan-consumer-expectations-900"	
+	},
+	"IMCCM": {	
+		"name": "U.S. Michigan Current Conditions",	
+		"src": "Investing",	
+		"freq": "m",	
+		"forecast": "N",	
+		"src_link": "https://www.investing.com/economic-calendar/michigan-current-conditions-901"	
+	},
 	"AWXSFRM": {
 		"name": "Wu-Xia Shadow Federal Funds Rate",
 		"src": "FRBAtlanta",
@@ -676,5 +697,61 @@
 		"freq": "m",
 		"units": "pch",
 		"Id": "PPIACO"
+	},
+	"FRDPIM": {
+		"name": "Real Disposable Personal Income: Per Capita",
+		"src": "FRED",
+		"freq": "m",
+		"units": "lin",
+		"Id": "A229RX0"
+	},
+	"FPSRM": {
+		"name": "Personal Saving Rate",
+		"src": "FRED",
+		"freq": "m",
+		"units": "lin",
+		"Id": "PSAVERT"
+	},
+	"FRFSTM": {
+		"name": "Advance Retail Sales: Retail and Food Services, Total",
+		"src": "FRED",
+		"freq": "m",
+		"units": "lin",
+		"Id": "RSAFS"
+	},
+	"FRFEMVM": {
+		"name": "Advance Retail Sales: Retail and Food Services Excluding Motor Vehicles and Parts Dealers",
+		"src": "FRED",
+		"freq": "m",
+		"units": "lin",
+		"Id": "RSFSXMV"
+	},
+	"FTVSM": {
+		"name": "Total Vehicle Sales",
+		"src": "FRED",
+		"freq": "m",
+		"units": "lin",
+		"Id": "TOTALSA"
+	},
+	"FISRM": {
+		"name": "Inventories to Sales Ratio",
+		"src": "FRED",
+		"freq": "m",
+		"units": "lin",
+		"Id": "RETAILIRSA"
+	},
+	"FURM": {
+		"name": "Unemployment Rate",
+		"src": "FRED",
+		"freq": "m",
+		"units": "lin",
+		"Id": "UNRATE"
+	},
+	"FPOHPIM": {
+		"name": "Purchase Only House Price Index for the United States",
+		"src": "FRED",
+		"freq": "m",
+		"units": "lin",
+		"Id": "HPIPONM226S"
 	}
 }

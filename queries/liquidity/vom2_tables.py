@@ -67,8 +67,16 @@ class cvo2m_tables:
         d = {'Actual_AGDPNO':'first', 'Actual_AGDPNO_lin':'first', 'Actual_FM2LW':'last', 'Q_avg_FM2LW':'last'}
         self.df_vom2now = self.df_vom2now.groupby('DATE', sort=False, as_index=False).agg(d) #Groups df taking 1st the att from 1st df
         self.df_vom2now = self.df_vom2now.sort_values(['DATE'], ascending=True).reset_index(drop=True)
+
+        df_temp = self.df_vom2now
+
         self.df_vom2now = self.df_vom2now.fillna(method="ffill").fillna(method="bfill")
         self.df_vom2now['Actual_VOM2'] = self.df_vom2now['Actual_AGDPNO_lin']/self.df_vom2now['Q_avg_FM2LW']
+
+        self.df_vom2now['Actual_AGDPNO'] = df_temp['Actual_AGDPNO']
+        self.df_vom2now['Actual_AGDPNO_lin'] = df_temp['Actual_AGDPNO_lin']
+        self.df_vom2now['Actual_FM2LW'] = df_temp['Actual_FM2LW']
+
         self.df_vom2now = self.df_vom2now.sort_values(['DATE'], ascending=False).reset_index(drop=True)
 
         if w_sql == 1:
@@ -88,8 +96,8 @@ class cvo2m_tables:
         self.gdp_q_table()
         self.df_vom2q.rename(columns={'DATE':'DATE_FVM2'}, inplace=True)
         self.df_gdpnowq.rename(columns={'DATE':'DATE_FGDPNQ'}, inplace=True)
-        #self.df_gdp_vom2_q = pandas.concat([self.df_vom2q, self.df_gdpnowq], axis=1, sort=False, join='outer')
         self.df_gdp_vom2_q = pandas.merge(left=self.df_gdpnowq, right=self.df_vom2q, on='Quarter', left_index=True)
+        self.df_gdp_vom2_q = self.df_gdp_vom2_q.iloc[:13]
         
         if w_sql == 1:
             self.df_gdp_vom2_q.to_sql(name="GDP_vs_Vom2_quarterly", con=self.out, if_exists='replace')
@@ -98,4 +106,4 @@ if __name__ == "__main__":
     con = sqlite3.connect("data/db/economic_data.sqlite")
     out = sqlite3.connect("data/db/dashboard_data.sqlite")
     obj = cvo2m_tables(con, out)
-    obj.gdp_vom2_q_table(1)
+    obj.gdp_vom2_q_table()

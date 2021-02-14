@@ -5,6 +5,7 @@ from time import strptime
 
 def ism_execute(name_dict, to_sql=True):
     path = "data/" + name_dict + ".csv"
+    path_temp = "data/" + name_dict + "_temp.csv"
 
     Actual_Y = "Actual_Y_" + name_dict
     Actual_M = "Actual_M_" + name_dict
@@ -73,7 +74,7 @@ def ism_execute(name_dict, to_sql=True):
         con = sqlite3.connect("data/db/economic_data.sqlite")
         table.to_sql(name=name_dict, con=con, if_exists='replace')
     else:
-        table.to_csv(path)
+        table.to_csv(path_temp)
 
 def markit_execute(name_dict, to_sql=True):
     path = "data/" + name_dict + ".csv"
@@ -192,7 +193,7 @@ def michigan_inflation_execute(name_dict, to_sql=True):
         con = sqlite3.connect("data/db/economic_data.sqlite")
         table.to_sql(name=name_dict, con=con, if_exists='replace')
     else:
-        table.to_csv(path)
+        table.to_csv("data/" + name_dict + "temp.csv")
 
 def ism_new_orders_execute(name_dict, to_sql=True):
     path = "data/" + name_dict + ".csv"
@@ -254,7 +255,7 @@ def ism_new_orders_execute(name_dict, to_sql=True):
         table.to_csv(path)
 
 if __name__ == "__main__":
-    ism_execute("INMPISMM", True)
+    ism_execute("IMCEM", False)
     #markit_execute("IPMICMM", False)
-    #michigan_inflation_execute("IM5YIM", True)
+    #michigan_inflation_execute("IMCEM", False)
     #ism_new_orders_execute("INOISMM", True)
