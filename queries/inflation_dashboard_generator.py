@@ -13,6 +13,7 @@ class cinfldash:
     def execute(self):
         fed_rates_table.generator(self.con, self.out)
         bond_yields_table.generate_TIPS_table(self.con, self.out)
+        simple_table.simple_table_to_plot(self.con, self.out, 648, "10y_breakeven_yoy_vs_10y_yield", "F10YBICH1W", "F10YBW")
         simple_table.simple_table_to_plot(self.con, self.out, 26, "10-Y_Breakeven_Inflation", "F10YBIW", "F10YBICHW")
         simple_table.simple_table_to_plot(self.con, self.out, 26, "5-Y_5-Y_Forward_Inflation", "F5YFIEW", "F5YFIECHW")
         simple_table.simple_table_to_plot(self.con, self.out, 26, "2y_vs_10y_Treasury", "F2YBW", "F10YBW")

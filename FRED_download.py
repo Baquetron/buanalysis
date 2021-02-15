@@ -49,11 +49,12 @@ def download(json_dict, name_dict, to_sql=True):
 
 if __name__ == "__main__":
         mydict = {
-		"name": "Purchase Only House Price Index for the United States",
+		"name": "10-Year Breakeven Inflation Rate",
 		"src": "FRED",
-		"freq": "m",
+		"freq": "wef",
+		"aggregation_method": "eop",
 		"units": "pc1",
-		"Id": "HPIPONM226S"
+		"Id": "T10YIE"
 	}
-        name = "FPOHPIPC1M"
+        name = "F10YBICH1W"
         download(mydict, name, True)

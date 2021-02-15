@@ -16,6 +16,7 @@ class cconsdash:
         simple_table.simple_table_to_plot(self.con, self.out, 13, "Real_disposable_personal_income_vs_personal_saving_rate", "FRDPIM", "FPSRM")
         three_year_comparator.generate(self.con, self.out, "Consumer_sentiment_Michigan", "IMCSM")
         simple_table.simple_table_to_plot(self.con, self.out, 13, "Consumer_curent_vs_expectations_conds", "IMCCM", "IMCEM")
+        three_year_comparator.generate(self.con, self.out, "5y_inflation_expectation_michigan", "IM5YIM")
         three_year_comparator.generate(self.con, self.out, "Conumser_loans", "FCLACBPCHM")
         loans_to_delinq_comparator.generate(self.con, self.out, "Cons_loans_vs_delinquency_rate", "FCLACBPCHQ", "GCLDRQ")
         three_year_comparator.generate(self.con, self.out, "Iventories_to_sales_ratio", "FISRM")

@@ -617,6 +617,14 @@
 		"units": "pch",
 		"Id": "T10YIE"
 	},
+	"F10YBICH1W": {
+		"name": "10-Year Breakeven Inflation Rate",
+		"src": "FRED",
+		"freq": "wef",
+		"aggregation_method": "eop",
+		"units": "pc1",
+		"Id": "T10YIE"
+	},
 	"F5YFIEW": {
 		"name": "5-Year, 5-Year Forward Inflation Expectation Rate",
 		"src": "FRED",
