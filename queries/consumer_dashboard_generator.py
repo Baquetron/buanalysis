@@ -3,7 +3,7 @@ import generic.simple_table as simple_table
 import generic.three_year_comparator as three_year_comparator
 import finantials.loans_to_delinq_comparator as loans_to_delinq_comparator
 
-class cunempdash:
+class cconsdash:
 
     def __init__(self, con, out, to_sql=True):
         self.con = con
@@ -19,8 +19,14 @@ class cunempdash:
         three_year_comparator.generate(self.con, self.out, "Conumser_loans", "FCLACBPCHM")
         loans_to_delinq_comparator.generate(self.con, self.out, "Cons_loans_vs_delinquency_rate", "FCLACBPCHQ", "GCLDRQ")
         three_year_comparator.generate(self.con, self.out, "Iventories_to_sales_ratio", "FISRM")
-        three_year_comparator.generate(self.con, self.out, "CPI", "CPIAUCSL")
+        three_year_comparator.generate(self.con, self.out, "CPI", "FCPICH1M")
         simple_table.simple_table_to_plot(self.con, self.out, 13, "Retail_vs_core_retail_sales", "FRFSTM", "FRFEMVM")
         three_year_comparator.generate(self.con, self.out, "Retail_sales", "FRFSTM")
-        three_year_comparator.generate(self.con, self.out, "Total Vehicle Sales", "FTVSM")
+        three_year_comparator.generate(self.con, self.out, "Total_Vehicle_Sales", "FTVSM")
+
+if __name__ == "__main__":
+    con = sqlite3.connect("data/db/economic_data.sqlite")
+    out = sqlite3.connect("data/db/dashboard_data.sqlite")
+    obj = cconsdash(con, out)
+    obj.execute()
         

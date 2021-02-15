@@ -49,11 +49,11 @@ def download(json_dict, name_dict, to_sql=True):
 
 if __name__ == "__main__":
         mydict = {
-		"name": "LESS: Allowance for Loan and Lease Losses, All Commercial Banks",
+		"name": "Purchase Only House Price Index for the United States",
 		"src": "FRED",
-		"freq": "wew",
-		"units": "chg",
-		"Id": "ALLACBW027SBOG"
+		"freq": "m",
+		"units": "pc1",
+		"Id": "HPIPONM226S"
 	}
-        name = "FLESSCHW"
+        name = "FPOHPIPC1M"
         download(mydict, name, True)

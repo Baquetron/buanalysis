@@ -110,10 +110,10 @@ def download(json_dict, name_dict, to_sql=True):
 
 if __name__ == "__main__":
     index = {
-		"name": "U.S. Michigan Current Conditions",	
+		"name": "U.S. Mortgage Market Index",	
 		"src": "Investing",	
-		"freq": "m",	
+		"freq": "w",	
 		"forecast": "N",	
-		"src_link": "https://www.investing.com/economic-calendar/michigan-current-conditions-901"
+		"src_link": "https://www.investing.com/economic-calendar/mortgage-market-index-1427"
 	}
-    download(index, "IMCCM")
+    download(index, "IMMIW")

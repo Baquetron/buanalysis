@@ -107,6 +107,13 @@
 		"forecast": "N",	
 		"src_link": "https://www.investing.com/economic-calendar/michigan-current-conditions-901"	
 	},
+	"IMMIW": {	
+		"name": "U.S. Mortgage Market Index",	
+		"src": "Investing",	
+		"freq": "w",	
+		"forecast": "N",	
+		"src_link": "https://www.investing.com/economic-calendar/mortgage-market-index-1427"	
+	},
 	"AWXSFRM": {
 		"name": "Wu-Xia Shadow Federal Funds Rate",
 		"src": "FRBAtlanta",
@@ -656,6 +663,13 @@
 		"units": "pch",
 		"Id": "CPIAUCSL"
 	},
+	"FCPICH1M": {
+		"name": "Consumer Price Index for All Urban Consumers: All Items in U.S. City Average",
+		"src": "FRED",
+		"freq": "m",
+		"units": "pc1",
+		"Id": "CPIAUCSL"
+	},
 	"FPCEM": {
 		"name": "Personal Consumption Expenditures Excluding Food and Energy (Chain-Type Price Index)",
 		"src": "FRED",
@@ -747,11 +761,39 @@
 		"units": "lin",
 		"Id": "UNRATE"
 	},
-	"FPOHPIM": {
+	"FPOHPIPC1M": {
 		"name": "Purchase Only House Price Index for the United States",
 		"src": "FRED",
 		"freq": "m",
-		"units": "lin",
+		"units": "pc1",
 		"Id": "HPIPONM226S"
+	},
+	"F10YBM": {
+		"name": "10-Year Treasury Constant Maturity Rate",
+		"src": "FRED",
+		"freq": "m",
+		"units": "lin",
+		"Id": "DGS10"
+	},
+	"FMBSW": {
+		"name": "Assets: Securities Held Outright: Mortgage-Backed Securities: Wednesday Level",
+		"src": "FRED",
+		"freq": "wew",
+		"units": "lin",
+		"Id": "WSHOMCB"
+	},
+	"FNPHUM": {
+		"name": "New Private Housing Units Authorized by Building Permits",
+		"src": "FRED",
+		"freq": "m",
+		"units": "lin",
+		"Id": "PERMIT"
+	},
+	"F30YFRMM": {
+		"name": "30-Year Fixed Rate Mortgage Average in the United States",
+		"src": "FRED",
+		"freq": "m",
+		"units": "lin",
+		"Id": "MORTGAGE30US"
 	}
 }
